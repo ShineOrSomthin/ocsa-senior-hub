@@ -113,13 +113,13 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 
 /* ── BADGES ── */
 .bdg{display:inline-block;font-family:var(--T);font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:2px;letter-spacing:0.3px;text-transform:uppercase;}
-.bo{background:#fde8dc;color:#8c2e0a;border:1.5px solid var(--oo);}
-.bb{background:#dce8f8;color:#0e2d68;border:1.5px solid var(--bl);}
-.br{background:#fce0e0;color:#7a0c0c;border:1.5px solid var(--re);}
-.by{background:#fef5d6;color:#6b4e00;border:1.5px solid var(--ye);}
-.bp{background:#fde0ef;color:#700038;border:1.5px solid var(--pi);}
-.bg2{background:#dff0d0;color:#234a10;border:1.5px solid #3a7020;}
-.bt{background:#d5f0e5;color:#0e4a32;border:1.5px solid #1a7a5a;}
+.bo{background:transparent;color:#8c2e0a;border:1.5px solid var(--oo);}
+.bb{background:transparent;color:#0e2d68;border:1.5px solid var(--bl);}
+.br{background:transparent;color:#7a0c0c;border:1.5px solid var(--re);}
+.by{background:transparent;color:#6b4e00;border:1.5px solid var(--ye);}
+.bp{background:transparent;color:#700038;border:1.5px solid var(--pi);}
+.bg2{background:transparent;color:#234a10;border:1.5px solid #3a7020;}
+.bt{background:transparent;color:#0e4a32;border:1.5px solid #1a7a5a;}
 
 /* ── GRIDS ── */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -198,10 +198,10 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 .stamp-btn-sm:hover{opacity:0.87;}
 .stamp-btn-sm.green{background:#1a7a5a;}
 .success-msg{font-family:var(--P);font-size:13px;font-weight:700;color:#1a7a5a;margin-top:8px;display:none;}
-.success-box{background:#d5f0e5;border:2px solid #6dc9a0;border-radius:3px;padding:20px;display:none;text-align:center;}
+.success-box{background:var(--pa2);border-top:3px solid #1a7a5a;border-radius:0;padding:20px;display:none;text-align:center;}
 .success-box .bti{font-size:28px;color:#1a7a5a;display:block;margin-bottom:8px;}
-.success-box strong{display:block;font-family:var(--T);font-size:17px;font-weight:700;color:#0e4a32;margin-bottom:4px;}
-.success-box span{font-family:var(--P);font-size:13px;font-weight:600;color:#1a7a5a;}
+.success-box strong{display:block;font-family:var(--T);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.success-box span{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);}
 
 /* ── TABS ── */
 .tab-bar{display:flex;border-bottom:2px dashed rgba(26,18,9,0.22);margin-bottom:16px;flex-wrap:wrap;gap:2px;}
@@ -227,7 +227,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 .inbox-meta{flex:1;min-width:0;}
 .inbox-name{font-family:var(--T);font-weight:700;font-size:13px;margin-bottom:3px;color:var(--ink);}
 .inbox-preview{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);font-style:italic;margin-bottom:5px;line-height:1.4;}
-.inbox-reply{font-family:var(--P);font-size:12px;font-weight:600;color:#0e4a32;background:#d5f0e5;border-radius:2px;padding:7px 10px;line-height:1.55;border-left:3px solid #1a7a5a;}
+.inbox-reply{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink2);background:var(--pa2);border-radius:0;padding:7px 10px;line-height:1.55;border-top:2px solid #1a7a5a;}
 .inbox-time{font-family:var(--T);font-size:10px;font-weight:600;color:var(--ink3);flex-shrink:0;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--oo);display:inline-block;margin-right:4px;}
 
@@ -250,11 +250,11 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 .mood-card:hover{background:rgba(255,255,255,0.9);transform:rotate(-1deg) scale(1.04);}
 .mood-card .moji{font-size:26px;margin-bottom:5px;display:block;}
 .mood-card .ml{font-family:var(--T);font-size:11px;font-weight:600;color:var(--ink3);}
-.tip-mh{border-radius:3px;padding:11px 13px;margin-bottom:9px;}
+.tip-mh{border-radius:0;padding:11px 13px;margin-bottom:9px;}
 .tip-mh .tct{font-family:var(--T);font-size:13px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
 .tip-mh .tcb{font-family:var(--P);font-size:13px;font-weight:600;line-height:1.6;}
-.crisis-box{border-radius:3px;padding:14px 16px;margin-bottom:12px;background:#fce0e0;border:2px solid var(--re);}
-.crisis-box .ct{color:#7a0c0c;}
+.crisis-box{border-radius:0;padding:14px 16px;margin-bottom:12px;background:var(--pa2);border-top:3px solid var(--re);border-bottom:1.5px solid rgba(26,18,9,0.12);}
+.crisis-box .ct{color:var(--re);}
 
 /* ── PROFILE ── */
 .profile-card{background:var(--pa2);border:2px dashed rgba(26,18,9,0.22);border-radius:3px;padding:16px;display:flex;align-items:center;gap:16px;margin-bottom:14px;}
@@ -294,21 +294,21 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 .em-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
 /* ── PRIVACY POLICY ── */
-.pp-notice{background:#fef5d6;border:2px solid var(--ye);border-radius:3px;padding:12px 14px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;}
-.pp-notice .ti{font-size:18px;color:#6b4e00;flex-shrink:0;margin-top:1px;}
-.pp-notice-text{font-family:var(--P);font-size:13px;font-weight:600;color:#6b4e00;line-height:1.6;}
-.pp-notice-text strong{font-family:var(--T);font-size:13px;display:block;margin-bottom:3px;color:#4a3500;}
+.pp-notice{background:var(--pa2);border-top:3px solid var(--ye);border-radius:0;padding:12px 14px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;}
+.pp-notice .ti{font-size:18px;color:var(--ye);flex-shrink:0;margin-top:1px;}
+.pp-notice-text{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.6;}
+.pp-notice-text strong{font-family:var(--T);font-size:13px;display:block;margin-bottom:3px;color:var(--ink);}
 .pp-sec{margin-bottom:20px;}
 .pp-sec-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:7px;padding-bottom:6px;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
 .pp-text{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.75;margin-bottom:7px;}
 .pp-list{margin:6px 0 8px 18px;}
 .pp-list li{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.7;margin-bottom:3px;}
-.pp-hl{background:var(--pa2);border-left:3px solid var(--oo);border-radius:0 3px 3px 0;padding:9px 12px;margin:9px 0;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.65;}
-.pp-hl strong{font-family:var(--T);color:var(--oo);}
+.pp-hl{background:var(--pa2);border-top:3px solid var(--oo);border-radius:0;padding:9px 12px;margin:9px 0;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.65;}
+.pp-hl strong{font-family:var(--T);color:var(--ink);}
 .pp-tag{display:inline-block;font-family:var(--T);font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:0.3px;margin-left:5px;vertical-align:middle;}
-.tag-coppa{background:#fef5d6;color:#6b4e00;border:1.5px solid var(--ye);}
-.tag-ferpa{background:#dce8f8;color:#0e2d68;border:1.5px solid var(--bl);}
-.tag-cal{background:#dff0d0;color:#234a10;border:1.5px solid #3a7020;}
+.tag-coppa{background:transparent;color:#6b4e00;border:1.5px solid var(--ye);}
+.tag-ferpa{background:transparent;color:#0e2d68;border:1.5px solid var(--bl);}
+.tag-cal{background:transparent;color:#234a10;border:1.5px solid #3a7020;}
 .pp-contact-box{background:var(--pa2);border:2px dashed rgba(26,18,9,0.22);border-radius:3px;padding:14px 16px;margin-top:8px;}
 .pp-contact-row{display:flex;align-items:center;gap:9px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
 .pp-contact-row:last-child{margin-bottom:0;}
@@ -639,11 +639,11 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         <div class="ps">Senior year is exciting and overwhelming at the same time. This page is here for you.</div>
         <div class="crisis-box">
           <div class="ct"><i class="ti ti-urgent" aria-hidden="true"></i> If You Need Immediate Support</div>
-          <div class="cb" style="color:#8c1010;margin-bottom:10px;">If you're in crisis or having thoughts of harming yourself, please reach out now.</div>
+          <div class="cb" style="color:var(--ink2);margin-bottom:10px;">If you're in crisis or having thoughts of harming yourself, please reach out now.</div>
           <div style="display:flex;flex-direction:column;gap:7px;font-family:var(--P);font-size:13px;font-weight:700;">
-            <div style="color:#7a0c0c;"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>988 Suicide &amp; Crisis Lifeline &mdash; call or text <strong>988</strong></div>
-            <div style="color:#8c1010;"><i class="ti ti-message" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>Crisis Text Line &mdash; text <strong>HOME</strong> to <strong>741741</strong></div>
-            <div style="color:#8c1010;"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>OC Crisis Line &mdash; <strong>(877) 727-4747</strong></div>
+            <div style="color:var(--re);"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>988 Suicide &amp; Crisis Lifeline &mdash; call or text <strong>988</strong></div>
+            <div style="color:var(--ink2);"><i class="ti ti-message" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>Crisis Text Line &mdash; text <strong>HOME</strong> to <strong>741741</strong></div>
+            <div style="color:var(--ink2);"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>OC Crisis Line &mdash; <strong>(877) 727-4747</strong></div>
           </div>
         </div>
         <div class="nb-card">
@@ -658,10 +658,10 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
           <div id="mood-response" style="font-family:var(--P);font-size:13px;font-weight:600;display:none;padding:11px 13px;background:var(--pa2);border-radius:2px;line-height:1.65;border-left:4px solid var(--pi);"></div>
         </div>
         <div class="nb-card"><div class="ct"><i class="ti ti-bulb" aria-hidden="true" style="color:var(--ye);"></i> Coping Tips for Arts Students</div>
-          <div class="tip-mh" style="background:#fef5d6;border:2px dashed var(--ye);"><div class="tct" style="color:#6b4e00;"><i class="ti ti-music" aria-hidden="true"></i> Use your art as an outlet</div><div class="tcb" style="color:#7a5800;">Create something just for you &mdash; imperfect, unfinished, not for any audition or grade.</div></div>
-          <div class="tip-mh" style="background:#dce8f8;border:2px dashed var(--bl);"><div class="tct" style="color:#0e2d68;"><i class="ti ti-clock" aria-hidden="true"></i> Protect non-application time</div><div class="tcb" style="color:#1a3d78;">At least one hour a day that belongs only to you &mdash; not apps, not rehearsal, not homework.</div></div>
-          <div class="tip-mh" style="background:#fce0e0;border:2px dashed var(--re);"><div class="tct" style="color:#7a0c0c;"><i class="ti ti-moon" aria-hidden="true"></i> Sleep is not optional</div><div class="tcb" style="color:#8c1010;">Chronic sleep deprivation tanks auditions, essays, and judgment. It's not a badge of honor.</div></div>
-          <div class="tip-mh" style="background:#fde8dc;border:2px dashed var(--oo);"><div class="tct" style="color:#8c2e0a;"><i class="ti ti-refresh" aria-hidden="true"></i> Rejection is not failure</div><div class="tcb" style="color:#9e3510;">Every working artist has been rejected. A college rejection is not a verdict on your talent.</div></div>
+          <div class="tip-mh" style="background:var(--pa2);border-top:3px solid var(--ye);border-radius:0;"><div class="tct" style="color:var(--ink);"><i class="ti ti-music" aria-hidden="true"></i> Use your art as an outlet</div><div class="tcb" style="color:var(--ink3);">Create something just for you &mdash; imperfect, unfinished, not for any audition or grade.</div></div>
+          <div class="tip-mh" style="background:var(--pa2);border-top:3px solid var(--bl);border-radius:0;"><div class="tct" style="color:var(--ink);"><i class="ti ti-clock" aria-hidden="true"></i> Protect non-application time</div><div class="tcb" style="color:var(--ink3);">At least one hour a day that belongs only to you &mdash; not apps, not rehearsal, not homework.</div></div>
+          <div class="tip-mh" style="background:var(--pa2);border-top:3px solid var(--re);border-radius:0;"><div class="tct" style="color:var(--ink);"><i class="ti ti-moon" aria-hidden="true"></i> Sleep is not optional</div><div class="tcb" style="color:var(--ink3);">Chronic sleep deprivation tanks auditions, essays, and judgment. It's not a badge of honor.</div></div>
+          <div class="tip-mh" style="background:var(--pa2);border-top:3px solid var(--oo);border-radius:0;"><div class="tct" style="color:var(--ink);"><i class="ti ti-refresh" aria-hidden="true"></i> Rejection is not failure</div><div class="tcb" style="color:var(--ink3);">Every working artist has been rejected. A college rejection is not a verdict on your talent.</div></div>
         </div>
         <div class="nb-card"><div class="ct"><i class="ti ti-building-hospital" aria-hidden="true" style="color:var(--pi);"></i> Resources</div>
           <div class="mh-resource"><div class="mh-icon" style="background:#fde0ef;"><i class="ti ti-building" aria-hidden="true" style="color:var(--pi);"></i></div><div><div class="rname">OCSA School Counselors</div><div class="rdesc">Your first stop on campus &mdash; can support, listen, or connect you with resources.</div><div class="rcontact">Student Services &middot; 1010 N. Main St</div></div></div>
