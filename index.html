@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCSA Senior Hub — Class of 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --oo:#ef5c21;--bl:#0f5ba8;--re:#e9282f;--ye:#fcb712;--pi:#ad0553;
+  --ink:#1a1209;--ink2:#3a2a14;--ink3:#6b5030;
+  --pa:#faf7f0;--pa2:#f3ede0;--pa3:#ece4ce;
+  --ru:rgba(15,91,168,0.13);
+  --T:'DM Sans',sans-serif;--P:'Patrick Hand',sans-serif;
+}
+html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3);}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+
+/* ── AUTH ── */
+.auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--pa2);background-image:repeating-linear-gradient(transparent,transparent 27px,var(--ru) 27px,var(--ru) 28.5px);padding:20px;}
+.auth-card{background:var(--pa);border:2px solid rgba(26,18,9,0.18);border-radius:4px;padding:32px 28px;max-width:380px;width:100%;text-align:center;position:relative;box-shadow:0 4px 24px rgba(26,18,9,0.08);}
+.auth-tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:70px;height:20px;background:rgba(252,183,18,0.55);border-radius:2px;}
+.auth-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:6px;margin-top:8px;}
+.auth-logo-text{font-family:var(--T);font-size:24px;font-weight:700;color:var(--ink);}
+.auth-school-tag{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);margin-bottom:20px;border-bottom:1.5px dashed rgba(26,18,9,0.2);padding-bottom:13px;}
+.auth-title{font-family:var(--T);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.auth-sub{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:18px;line-height:1.55;}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:10px 14px;border:2px solid rgba(26,18,9,0.22);border-radius:3px;background:var(--pa);cursor:pointer;font-family:var(--P);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;transition:background 0.12s;}
+.google-btn:hover{background:var(--pa2);}
+.google-icon{width:17px;height:17px;flex-shrink:0;}
+.auth-divider{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.auth-divider span{font-size:12px;font-weight:600;color:var(--ink3);flex-shrink:0;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1.5px;background:rgba(26,18,9,0.15);}
+.nb-input{width:100%;border:none;border-bottom:2px solid rgba(26,18,9,0.25);padding:8px 4px;font-family:var(--P);font-size:14px;font-weight:700;color:var(--ink);background:transparent;margin-bottom:10px;outline:none;}
+.nb-input:focus{border-bottom-color:var(--oo);}
+.nb-input::placeholder{font-weight:400;color:var(--ink3);}
+.nb-select{width:100%;border:2px solid rgba(26,18,9,0.2);border-radius:3px;padding:8px 9px;font-family:var(--P);font-size:13px;font-weight:700;color:var(--ink);background:var(--pa);margin-bottom:10px;outline:none;}
+.nb-select:focus{border-color:var(--oo);}
+.nb-label{font-family:var(--P);font-size:12px;font-weight:700;color:var(--ink3);display:block;text-align:left;margin-bottom:2px;}
+.stamp-btn{width:100%;padding:10px;background:var(--oo);color:#fff;border:none;border-radius:3px;font-family:var(--T);font-size:15px;font-weight:700;cursor:pointer;margin-bottom:9px;transition:opacity 0.12s;}
+.stamp-btn:hover{opacity:0.88;}
+.auth-toggle{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;}
+.auth-toggle span{color:var(--oo);text-decoration:underline;font-weight:700;}
+.auth-privacy-link{font-family:var(--P);font-size:11.5px;font-weight:600;color:var(--ink3);margin-top:14px;padding-top:11px;border-top:1.5px dashed rgba(26,18,9,0.18);line-height:1.55;}
+.auth-privacy-link a{color:var(--bl);cursor:pointer;text-decoration:underline;}
+
+/* ── APP SHELL ── */
+.app{display:none;flex-direction:column;height:100vh;}
+.app.visible{display:flex;}
+.topbar-stripe{height:6px;background:linear-gradient(90deg,var(--pi) 0%,var(--pi) 20%,var(--oo) 20%,var(--oo) 40%,var(--ye) 40%,var(--ye) 60%,var(--re) 60%,var(--re) 80%,var(--bl) 80%,var(--bl) 100%);flex-shrink:0;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:6px 20px;background:var(--ink);min-height:52px;gap:10px;flex-shrink:0;}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-logo{font-family:var(--T);font-size:17px;font-weight:700;color:#fff;line-height:1.1;}
+.tb-school{font-family:var(--P);font-size:10px;font-weight:600;color:rgba(255,255,255,0.65);margin-top:1px;}
+.user-pill{display:flex;align-items:center;gap:7px;padding:5px 11px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);border-radius:20px;font-family:var(--P);font-size:13px;font-weight:700;color:#fff;cursor:pointer;position:relative;flex-shrink:0;transition:background 0.12s;}
+.user-pill:hover{background:rgba(255,255,255,0.2);}
+.user-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:10px;font-weight:700;flex-shrink:0;}
+.admin-badge{background:var(--ye);color:var(--ink);font-family:var(--T);font-size:9px;font-weight:700;padding:1px 5px;border-radius:2px;letter-spacing:0.5px;text-transform:uppercase;}
+.user-drop{display:none;position:absolute;top:110%;right:0;background:var(--pa);border:2px solid rgba(26,18,9,0.2);border-radius:4px;min-width:220px;z-index:100;overflow:hidden;box-shadow:0 4px 20px rgba(26,18,9,0.15);}
+.user-drop.open{display:block;}
+.udh{padding:12px 14px;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.udn{font-family:var(--T);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;gap:7px;}
+.udd{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);}
+.udi{display:flex;align-items:center;gap:9px;padding:9px 14px;font-family:var(--P);font-size:14px;font-weight:700;cursor:pointer;color:var(--ink);transition:background 0.1s;}
+.udi:hover{background:var(--pa2);}
+.udi .ti{font-size:16px;color:var(--ink3);}
+.udi.dng{color:var(--re);}
+.udi.dng .ti{color:var(--re);}
+.udi.adm{color:var(--ye);}
+.udi.adm .ti{color:var(--ye);}
+
+/* ── LAYOUT ── */
+.app-body{display:flex;flex:1;min-height:0;overflow:hidden;}
+.sidebar{width:190px;flex-shrink:0;background:var(--pa2);border-right:2px solid rgba(26,18,9,0.15);display:flex;flex-direction:column;overflow-y:auto;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--ru) 27px,var(--ru) 28.5px);}
+.side-top{padding:12px 12px 8px;border-bottom:1.5px dashed rgba(26,18,9,0.18);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.side-logo-text{font-family:var(--T);font-size:13px;font-weight:700;color:var(--ink);}
+.side-logo-sub{font-family:var(--P);font-size:10px;font-weight:600;color:var(--ink3);}
+.side-accent{height:4px;background:linear-gradient(90deg,var(--pi),var(--oo),var(--ye),var(--re),var(--bl));flex-shrink:0;}
+.side-nav{padding:7px 0;flex:1;}
+.ns{font-family:var(--T);font-size:10px;font-weight:700;padding:10px 13px 3px;letter-spacing:0.8px;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.ns::after{content:'';flex:1;height:1px;opacity:0.35;}
+.ns-o{color:var(--oo);}.ns-o::after{background:var(--oo);}
+.ns-b{color:var(--bl);}.ns-b::after{background:var(--bl);}
+.ns-y{color:var(--ye);}.ns-y::after{background:var(--ye);}
+.ns-r{color:var(--re);}.ns-r::after{background:var(--re);}
+.ns-p{color:var(--pi);}.ns-p::after{background:var(--pi);}
+.ns-admin{color:#fff;background:var(--ink);margin:6px 8px 2px;border-radius:3px;padding:4px 8px;font-size:10px;letter-spacing:1px;}
+.ns-admin::after{display:none;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 13px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;border-left:4px solid transparent;transition:all 0.12s;}
+.ni .ti{font-size:14px;}
+.ni:hover{background:rgba(26,18,9,0.05);color:var(--ink);}
+.ni.active{color:var(--oo);border-left-color:var(--oo);background:rgba(239,92,33,0.08);font-weight:700;}
+.ni.mh-nav.active{color:var(--pi);border-left-color:var(--pi);background:rgba(173,5,83,0.07);}
+.ni.admin-ni.active{color:var(--ink);border-left-color:var(--ink);background:rgba(26,18,9,0.08);}
+.side-footer{padding:10px 13px;border-top:1.5px dashed rgba(26,18,9,0.18);flex-shrink:0;}
+.side-footer a{font-family:var(--P);font-size:11px;font-weight:600;color:var(--bl);cursor:pointer;text-decoration:underline;display:flex;align-items:center;gap:5px;}
+
+.main{flex:1;background:var(--pa);overflow-y:auto;min-width:0;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--ru) 27px,var(--ru) 28.5px);}
+.panel{display:none;padding:20px;animation:fi 0.17s ease;max-width:860px;}
+.panel.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── TYPOGRAPHY ── */
+.ph{font-family:var(--T);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ps{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);margin-bottom:16px;}
+
+/* ── CARDS ── */
+.nb-card{background:rgba(255,255,255,0.7);border:2px solid rgba(26,18,9,0.14);border-radius:3px;padding:14px 16px;margin-bottom:12px;}
+.ct{font-family:var(--T);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.cb{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.7;}
+
+/* ── BADGES ── */
+.bdg{display:inline-block;font-family:var(--T);font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:2px;letter-spacing:0.3px;text-transform:uppercase;}
+.bo{background:#fde8dc;color:#8c2e0a;border:1.5px solid var(--oo);}
+.bb{background:#dce8f8;color:#0e2d68;border:1.5px solid var(--bl);}
+.br{background:#fce0e0;color:#7a0c0c;border:1.5px solid var(--re);}
+.by{background:#fef5d6;color:#6b4e00;border:1.5px solid var(--ye);}
+.bp{background:#fde0ef;color:#700038;border:1.5px solid var(--pi);}
+.bg2{background:#dff0d0;color:#234a10;border:1.5px solid #3a7020;}
+.bt{background:#d5f0e5;color:#0e4a32;border:1.5px solid #1a7a5a;}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+
+/* ── DEADLINES ── */
+.dl-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);gap:8px;}
+.dl-row:last-child{border-bottom:none;}
+.dl-name{font-family:var(--P);font-weight:700;font-size:13px;color:var(--ink);}
+.dl-desc{font-family:var(--P);font-size:11.5px;font-weight:600;color:var(--ink3);margin-top:1px;}
+.dl-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.dl-date{font-family:var(--T);font-size:13px;font-weight:700;color:var(--oo);}
+
+/* ── CALENDAR BUTTON ── */
+.cal-btn{display:flex;align-items:center;gap:3px;padding:3px 8px;font-family:var(--T);font-size:10px;font-weight:600;border:1.5px solid rgba(26,18,9,0.28);border-radius:2px;cursor:pointer;background:var(--pa2);color:var(--ink3);white-space:nowrap;position:relative;transition:all 0.12s;}
+.cal-btn:hover{background:var(--pa);color:var(--ink);border-color:var(--oo);}
+.cal-drop{display:none;position:absolute;top:110%;right:0;background:var(--pa);border:2px solid rgba(26,18,9,0.2);border-radius:3px;z-index:50;min-width:155px;overflow:hidden;box-shadow:0 4px 16px rgba(26,18,9,0.12);}
+.cal-drop.open{display:block;}
+.cal-opt{display:flex;align-items:center;gap:7px;padding:9px 12px;font-family:var(--P);font-size:13px;font-weight:700;cursor:pointer;color:var(--ink);}
+.cal-opt:hover{background:var(--pa2);}
+
+/* ── TIPS ── */
+.tip-row{display:flex;gap:10px;padding:9px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.tip-row:last-child{border-bottom:none;}
+.tip-n{width:26px;height:26px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.tip-t strong{display:block;font-family:var(--T);font-size:13px;font-weight:700;margin-bottom:3px;color:var(--ink);}
+.tip-t span{font-family:var(--P);font-size:12.5px;font-weight:600;color:var(--ink3);line-height:1.6;}
+
+/* ── EVENTS ── */
+.ev-row{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.ev-row:last-child{border-bottom:none;}
+.ev-box{width:44px;height:44px;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:2px solid;}
+.ev-mo{font-family:var(--T);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.ev-dy{font-family:var(--T);font-size:17px;font-weight:700;line-height:1;}
+.ev-info{flex:1;min-width:0;}
+.ev-info strong{display:block;font-family:var(--T);font-weight:700;font-size:14px;margin-bottom:2px;color:var(--ink);}
+.ev-info span{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);}
+
+/* ── ACTIVITIES ── */
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.act-card{background:var(--pa2);border:2px solid rgba(26,18,9,0.18);border-radius:3px;padding:12px;text-align:center;cursor:pointer;transition:all 0.12s;}
+.act-card:hover{background:rgba(255,255,255,0.9);border-color:var(--oo);transform:rotate(0.8deg);}
+.act-card .ic{font-size:24px;margin-bottom:6px;}
+.act-card .lb{font-family:var(--T);font-weight:700;font-size:13px;color:var(--ink);}
+.act-card .dc{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);margin-top:3px;}
+
+/* ── STAT CARD ── */
+.stat-c{background:var(--pa3);border-radius:3px;padding:10px;text-align:center;border:1.5px dashed rgba(26,18,9,0.2);}
+.stat-c .sl{font-family:var(--T);font-size:9px;font-weight:700;color:var(--ink3);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-c .sv{font-family:var(--T);font-size:22px;font-weight:700;color:var(--ink);}
+
+/* ── CHECKLIST ── */
+.chk-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.chk-row:last-child{border-bottom:none;}
+.chk-box{width:19px;height:19px;border:2px solid rgba(26,18,9,0.35);border-radius:2px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;background:transparent;transition:all 0.12s;}
+.chk-box.on::after{content:'';display:block;width:4px;height:8px;border:2.5px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.chk-row.done .chk-lbl strong{text-decoration:line-through;color:var(--ink3);}
+.chk-lbl strong{display:block;font-family:var(--T);font-weight:700;font-size:13px;color:var(--ink);}
+.chk-lbl span{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);}
+.pb-wrap{height:10px;background:var(--pa3);border-radius:2px;margin-top:6px;overflow:hidden;border:1.5px solid rgba(26,18,9,0.18);}
+.pb{height:100%;border-radius:1px;transition:width 0.4s ease;}
+
+/* ── CONSERVATORY TAGS ── */
+.cons-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.con-tag{background:var(--pa2);border:2px solid rgba(26,18,9,0.18);border-radius:3px;padding:9px 11px;font-family:var(--P);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;color:var(--ink3);transition:all 0.12s;}
+.con-tag:hover{background:rgba(255,255,255,0.9);border-color:var(--oo);color:var(--oo);}
+.con-tag .ti{font-size:15px;color:var(--oo);}
+
+/* ── FORMS ── */
+.nb-textarea{width:100%;min-height:80px;border:2px solid rgba(26,18,9,0.2);border-radius:3px;padding:10px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink);background:var(--pa2);resize:vertical;margin-top:5px;outline:none;}
+.nb-textarea:focus{border-color:var(--oo);}
+.nb-textarea::placeholder{color:var(--ink3);font-weight:400;}
+.nb-label-form{font-family:var(--T);font-size:10px;font-weight:700;color:var(--ink3);display:block;margin-top:10px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;}
+.nb-label-form:first-child{margin-top:0;}
+.stamp-btn-sm{padding:9px 18px;background:var(--oo);color:#fff;border:none;border-radius:3px;font-family:var(--T);font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-top:10px;transition:opacity 0.12s;}
+.stamp-btn-sm:hover{opacity:0.87;}
+.stamp-btn-sm.green{background:#1a7a5a;}
+.success-msg{font-family:var(--P);font-size:13px;font-weight:700;color:#1a7a5a;margin-top:8px;display:none;}
+.success-box{background:#d5f0e5;border:2px solid #6dc9a0;border-radius:3px;padding:20px;display:none;text-align:center;}
+.success-box .bti{font-size:28px;color:#1a7a5a;display:block;margin-bottom:8px;}
+.success-box strong{display:block;font-family:var(--T);font-size:17px;font-weight:700;color:#0e4a32;margin-bottom:4px;}
+.success-box span{font-family:var(--P);font-size:13px;font-weight:600;color:#1a7a5a;}
+
+/* ── TABS ── */
+.tab-bar{display:flex;border-bottom:2px dashed rgba(26,18,9,0.22);margin-bottom:16px;flex-wrap:wrap;gap:2px;}
+.tab{padding:9px 14px;font-family:var(--T);font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:5px;transition:all 0.12s;}
+.tab.active{color:var(--oo);border-bottom-color:var(--oo);font-weight:700;}
+.htab{display:none;}
+.htab.active{display:block;}
+
+/* ── FAQ ── */
+.faq-item{border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:11px 0;cursor:pointer;font-family:var(--T);font-weight:700;font-size:13px;gap:10px;color:var(--ink);}
+.faq-q:hover{color:var(--oo);}
+.faq-ch{font-size:15px;color:var(--ink3);flex-shrink:0;transition:transform 0.2s;}
+.faq-a{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);line-height:1.65;padding-bottom:11px;display:none;}
+.faq-a.open{display:block;}
+.faq-ch.open{transform:rotate(180deg);}
+
+/* ── INBOX ── */
+.inbox-row{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.inbox-row:last-child{border-bottom:none;}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:11px;font-weight:700;flex-shrink:0;border:2px solid rgba(26,18,9,0.15);}
+.inbox-meta{flex:1;min-width:0;}
+.inbox-name{font-family:var(--T);font-weight:700;font-size:13px;margin-bottom:3px;color:var(--ink);}
+.inbox-preview{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);font-style:italic;margin-bottom:5px;line-height:1.4;}
+.inbox-reply{font-family:var(--P);font-size:12px;font-weight:600;color:#0e4a32;background:#d5f0e5;border-radius:2px;padding:7px 10px;line-height:1.55;border-left:3px solid #1a7a5a;}
+.inbox-time{font-family:var(--T);font-size:10px;font-weight:600;color:var(--ink3);flex-shrink:0;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--oo);display:inline-block;margin-right:4px;}
+
+/* ── CONTACTS ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.con-card{background:var(--pa2);border:2px dashed rgba(26,18,9,0.22);border-radius:3px;padding:12px 14px;}
+.con-card .cn{font-family:var(--T);font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.con-card .cr{font-family:var(--P);font-size:11.5px;font-weight:600;color:var(--ink3);margin-bottom:8px;line-height:1.4;}
+.con-card .ce{font-family:var(--P);font-size:12px;font-weight:700;color:var(--bl);display:flex;align-items:center;gap:4px;}
+
+/* ── MENTAL HEALTH ── */
+.mh-resource{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.mh-resource:last-child{border-bottom:none;}
+.mh-icon{width:38px;height:38px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;border:2px dashed rgba(26,18,9,0.2);}
+.mh-resource .rname{font-family:var(--T);font-weight:700;font-size:13px;color:var(--ink);margin-bottom:3px;}
+.mh-resource .rdesc{font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);line-height:1.55;}
+.mh-resource .rcontact{font-family:var(--P);font-size:12px;font-weight:700;color:var(--pi);margin-top:4px;}
+.mood-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.mood-card{background:var(--pa2);border:2px solid rgba(26,18,9,0.18);border-radius:3px;padding:11px 5px;text-align:center;cursor:pointer;transition:all 0.15s;}
+.mood-card:hover{background:rgba(255,255,255,0.9);transform:rotate(-1deg) scale(1.04);}
+.mood-card .moji{font-size:26px;margin-bottom:5px;display:block;}
+.mood-card .ml{font-family:var(--T);font-size:11px;font-weight:600;color:var(--ink3);}
+.tip-mh{border-radius:3px;padding:11px 13px;margin-bottom:9px;}
+.tip-mh .tct{font-family:var(--T);font-size:13px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.tip-mh .tcb{font-family:var(--P);font-size:13px;font-weight:600;line-height:1.6;}
+.crisis-box{border-radius:3px;padding:14px 16px;margin-bottom:12px;background:#fce0e0;border:2px solid var(--re);}
+.crisis-box .ct{color:#7a0c0c;}
+
+/* ── PROFILE ── */
+.profile-card{background:var(--pa2);border:2px dashed rgba(26,18,9,0.22);border-radius:3px;padding:16px;display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+.pa-lg{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:20px;font-weight:700;flex-shrink:0;border:2.5px solid rgba(26,18,9,0.2);}
+.pname{font-family:var(--T);font-size:18px;font-weight:700;color:var(--ink);}
+.pdetail{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink3);margin-top:3px;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.stat-box{background:var(--pa);border:2px dashed rgba(26,18,9,0.2);border-radius:3px;padding:11px;text-align:center;}
+.stat-box .sv{font-family:var(--T);font-size:24px;font-weight:700;color:var(--ink);}
+.stat-box .sl{font-family:var(--T);font-size:9px;font-weight:700;color:var(--ink3);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* ── ADMIN ── */
+.admin-panel-wrap{background:#fafff7;border:2px solid #3a7020;border-radius:4px;padding:0;overflow:hidden;margin-bottom:12px;}
+.admin-panel-hdr{background:var(--ink);color:#fff;padding:11px 16px;font-family:var(--T);font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;}
+.admin-panel-hdr .ti{font-size:15px;color:var(--ye);}
+.admin-panel-body{padding:14px 16px;}
+.admin-section{margin-bottom:18px;}
+.admin-section:last-child{margin-bottom:0;}
+.admin-section-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.admin-input{width:100%;border:1.5px solid rgba(26,18,9,0.22);border-radius:3px;padding:8px 10px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink);background:var(--pa);outline:none;margin-top:3px;}
+.admin-input:focus{border-color:var(--oo);}
+.admin-input::placeholder{font-weight:400;color:var(--ink3);}
+.admin-select{width:100%;border:1.5px solid rgba(26,18,9,0.22);border-radius:3px;padding:8px 10px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink);background:var(--pa);outline:none;margin-top:3px;}
+.admin-label{font-family:var(--T);font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-top:10px;}
+.admin-label:first-child{margin-top:0;}
+.admin-list-item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px dashed rgba(26,18,9,0.15);font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink);}
+.admin-list-item:last-child{border-bottom:none;}
+.admin-list-item .nm{flex:1;}
+.admin-list-item .mt{color:var(--ink3);font-size:11px;}
+.del-btn{background:none;border:none;cursor:pointer;color:#ccc;font-size:15px;padding:2px 5px;border-radius:2px;transition:color 0.12s;}
+.del-btn:hover{color:var(--re);}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#3a7020;display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.em-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px dashed rgba(26,18,9,0.12);font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink);}
+.em-row:last-child{border-bottom:none;}
+.em-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* ── PRIVACY POLICY ── */
+.pp-notice{background:#fef5d6;border:2px solid var(--ye);border-radius:3px;padding:12px 14px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;}
+.pp-notice .ti{font-size:18px;color:#6b4e00;flex-shrink:0;margin-top:1px;}
+.pp-notice-text{font-family:var(--P);font-size:13px;font-weight:600;color:#6b4e00;line-height:1.6;}
+.pp-notice-text strong{font-family:var(--T);font-size:13px;display:block;margin-bottom:3px;color:#4a3500;}
+.pp-sec{margin-bottom:20px;}
+.pp-sec-title{font-family:var(--T);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:7px;padding-bottom:6px;border-bottom:1.5px dashed rgba(26,18,9,0.18);}
+.pp-text{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.75;margin-bottom:7px;}
+.pp-list{margin:6px 0 8px 18px;}
+.pp-list li{font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.7;margin-bottom:3px;}
+.pp-hl{background:var(--pa2);border-left:3px solid var(--oo);border-radius:0 3px 3px 0;padding:9px 12px;margin:9px 0;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);line-height:1.65;}
+.pp-hl strong{font-family:var(--T);color:var(--oo);}
+.pp-tag{display:inline-block;font-family:var(--T);font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:0.3px;margin-left:5px;vertical-align:middle;}
+.tag-coppa{background:#fef5d6;color:#6b4e00;border:1.5px solid var(--ye);}
+.tag-ferpa{background:#dce8f8;color:#0e2d68;border:1.5px solid var(--bl);}
+.tag-cal{background:#dff0d0;color:#234a10;border:1.5px solid #3a7020;}
+.pp-contact-box{background:var(--pa2);border:2px dashed rgba(26,18,9,0.22);border-radius:3px;padding:14px 16px;margin-top:8px;}
+.pp-contact-row{display:flex;align-items:center;gap:9px;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.pp-contact-row:last-child{margin-bottom:0;}
+.pp-contact-row .ti{font-size:15px;color:var(--bl);flex-shrink:0;}
+.pp-footer{text-align:center;margin-top:24px;padding-top:16px;border-top:2px dashed rgba(26,18,9,0.18);font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);line-height:1.6;}
+
+/* ── CONSENT BANNER ── */
+.consent-banner{background:var(--ink);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:3px solid var(--oo);flex-shrink:0;}
+.consent-text{font-family:var(--P);font-size:12px;font-weight:600;color:rgba(255,255,255,0.85);flex:1;min-width:200px;line-height:1.5;}
+.consent-text a{color:var(--ye);cursor:pointer;text-decoration:underline;}
+.consent-dismiss{padding:7px 16px;background:var(--oo);color:#fff;border:none;border-radius:3px;font-family:var(--T);font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════════ -->
+<div class="auth-screen" id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-tape"></div>
+    <div class="auth-logo-wrap">
+      <svg width="80" height="80" viewBox="0 0 503.5 508.5" xmlns="http://www.w3.org/2000/svg" aria-label="OCSA logo">
+        <polygon points="67.5 116.5 .5 261 138 325 204 179.5 67.5 116.5" fill="#ef5c21"/>
+        <polygon points="404 .5 279.5 5.5 284.5 134 380 131 409 120 404 .5" fill="#0f5ba8"/>
+        <polygon points="249 226.5 154.5 293.5 138 325.5 120.5 318.5 76.5 350.5 190.5 508 363 383 249 226.5" fill="#fcb712"/>
+        <polygon points="165.5 16.5 145.5 103 226 121 246 34.5 165.5 16.5" fill="#ad0553"/>
+        <polygon points="445 108.5 299.5 161.5 357.5 320 503 267 445 108.5" fill="#e9282f"/>
+      </svg>
+      <div class="auth-logo-text">OCSA Senior Hub</div>
+    </div>
+    <div class="auth-school-tag">Orange County School of the Arts &mdash; Class of 2026</div>
+    <div class="auth-title">Sign in to your notebook</div>
+    <div class="auth-sub">Your checklist, progress, and notes are saved to your account.</div>
+    <button class="google-btn" onclick="googleSignIn()">
+      <svg class="google-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+    <div class="auth-divider"><span>or use email</span></div>
+    <div id="auth-form-signin">
+      <span class="nb-label">Email address</span>
+      <input class="nb-input" type="email" id="si-email" placeholder="your.name@students.ocsarts.net"/>
+      <span class="nb-label">Password</span>
+      <input class="nb-input" type="password" id="si-pass" placeholder="••••••••"/>
+      <button class="stamp-btn" onclick="emailSignIn()">Sign in</button>
+      <div class="auth-toggle">No account? <span onclick="toggleAuthMode()">Create one</span></div>
+    </div>
+    <div id="auth-form-signup" style="display:none;">
+      <span class="nb-label">Full name</span>
+      <input class="nb-input" type="text" id="su-name" placeholder="Your name"/>
+      <span class="nb-label">School email</span>
+      <input class="nb-input" type="email" id="su-email" placeholder="your.name@students.ocsarts.net"/>
+      <span class="nb-label">Your conservatory</span>
+      <select class="nb-select" id="su-conservatory">
+        <option value="">Select...</option>
+        <option>Acting</option><option>Arts &amp; Enterprise</option>
+        <option>Classical &amp; Contemporary Dance</option><option>Classical Voice</option>
+        <option>Commercial Dance</option><option>Creative Writing</option>
+        <option>Culinary Arts &amp; Hospitality</option><option>Digital Media</option>
+        <option>Film &amp; Television</option><option>Integrated Arts</option>
+        <option>International Dance</option><option>Instrumental Music</option>
+        <option>Musical Theater</option><option>Popular Music</option>
+        <option>Production &amp; Design</option><option>Visual Arts</option>
+      </select>
+      <span class="nb-label">Password</span>
+      <input class="nb-input" type="password" id="su-pass" placeholder="Create a password"/>
+      <button class="stamp-btn" onclick="emailSignUp()">Create account</button>
+      <div class="auth-toggle">Already have an account? <span onclick="toggleAuthMode()">Sign in</span></div>
+    </div>
+    <div class="auth-privacy-link">By signing in you agree to our <a onclick="showPrivacyFromAuth()">Privacy Policy</a>. Users under 13 require parental consent.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP
+══════════════════════════════════════════ -->
+<div class="app" id="main-app">
+  <div class="topbar-stripe"></div>
+  <div class="topbar">
+    <div class="tb-left">
+      <svg width="38" height="38" viewBox="0 0 503.5 508.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="67.5 116.5 .5 261 138 325 204 179.5 67.5 116.5" fill="#ef5c21"/>
+        <polygon points="404 .5 279.5 5.5 284.5 134 380 131 409 120 404 .5" fill="#0f5ba8"/>
+        <polygon points="249 226.5 154.5 293.5 138 325.5 120.5 318.5 76.5 350.5 190.5 508 363 383 249 226.5" fill="#fcb712"/>
+        <polygon points="165.5 16.5 145.5 103 226 121 246 34.5 165.5 16.5" fill="#ad0553"/>
+        <polygon points="445 108.5 299.5 161.5 357.5 320 503 267 445 108.5" fill="#e9282f"/>
+      </svg>
+      <div>
+        <div class="tb-logo">OCSA Senior Hub</div>
+        <div class="tb-school">Orange County School of the Arts &middot; Class of 2026</div>
+      </div>
+    </div>
+    <div class="user-pill" onclick="toggleDrop()" id="user-pill">
+      <div class="user-avatar" id="topbar-avatar"></div>
+      <span id="topbar-name"></span>
+      <span class="admin-badge" id="topbar-admin-badge" style="display:none;">Admin</span>
+      <i class="ti ti-chevron-down" aria-hidden="true" style="font-size:11px;"></i>
+      <div class="user-drop" id="user-drop">
+        <div class="udh">
+          <div class="udn" id="drop-name"><span></span><span class="admin-badge" id="drop-admin-badge" style="display:none;">Admin</span></div>
+          <div class="udd" id="drop-detail"></div>
+        </div>
+        <div class="udi" onclick="show('profile')"><i class="ti ti-user" aria-hidden="true"></i> My profile</div>
+        <div class="udi" onclick="show('checklist')"><i class="ti ti-list-check" aria-hidden="true"></i> My checklist</div>
+        <div class="udi adm" id="drop-admin-link" style="display:none;" onclick="show('admin')"><i class="ti ti-shield" aria-hidden="true"></i> Admin panel</div>
+        <div class="udi" onclick="show('privacy')"><i class="ti ti-lock" aria-hidden="true"></i> Privacy policy</div>
+        <div class="udi dng" onclick="signOut()"><i class="ti ti-logout" aria-hidden="true"></i> Sign out</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="side-top">
+        <svg width="32" height="32" viewBox="0 0 503.5 508.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon points="67.5 116.5 .5 261 138 325 204 179.5 67.5 116.5" fill="#ef5c21"/>
+          <polygon points="404 .5 279.5 5.5 284.5 134 380 131 409 120 404 .5" fill="#0f5ba8"/>
+          <polygon points="249 226.5 154.5 293.5 138 325.5 120.5 318.5 76.5 350.5 190.5 508 363 383 249 226.5" fill="#fcb712"/>
+          <polygon points="165.5 16.5 145.5 103 226 121 246 34.5 165.5 16.5" fill="#ad0553"/>
+          <polygon points="445 108.5 299.5 161.5 357.5 320 503 267 445 108.5" fill="#e9282f"/>
+        </svg>
+        <div><div class="side-logo-text">Senior Hub</div><div class="side-logo-sub">Class of 2026</div></div>
+      </div>
+      <div class="side-accent"></div>
+      <div class="side-nav">
+        <div class="ns ns-o">Overview</div>
+        <div class="ni active" onclick="show('home')"><i class="ti ti-home" aria-hidden="true"></i> Dashboard</div>
+        <div class="ni" onclick="show('profile')"><i class="ti ti-user" aria-hidden="true"></i> My Profile</div>
+        <div class="ni" onclick="show('checklist')"><i class="ti ti-list-check" aria-hidden="true"></i> Checklist</div>
+        <div class="ns ns-b">Opportunities</div>
+        <div class="ni" onclick="show('scholarships')"><i class="ti ti-award" aria-hidden="true"></i> Scholarships</div>
+        <div class="ni" onclick="show('college')"><i class="ti ti-building-community" aria-hidden="true"></i> College Deadlines</div>
+        <div class="ns ns-y">Senior Life</div>
+        <div class="ni" onclick="show('events')"><i class="ti ti-calendar-event" aria-hidden="true"></i> OCSA Events</div>
+        <div class="ni" onclick="show('activities')"><i class="ti ti-confetti" aria-hidden="true"></i> Fun Activities</div>
+        <div class="ns ns-r">Arts Prep</div>
+        <div class="ni" onclick="show('auditions')"><i class="ti ti-microphone" aria-hidden="true"></i> Audition Tips</div>
+        <div class="ni" onclick="show('essays')"><i class="ti ti-pencil" aria-hidden="true"></i> Essay Tips</div>
+        <div class="ni" onclick="show('testing')"><i class="ti ti-clipboard-check" aria-hidden="true"></i> SAT / ACT</div>
+        <div class="ns ns-p">Wellbeing</div>
+        <div class="ni mh-nav" onclick="show('mentalhealth')"><i class="ti ti-heart" aria-hidden="true"></i> Mental Health</div>
+        <div class="ni" onclick="show('help')"><i class="ti ti-help-circle" aria-hidden="true"></i> Get Help</div>
+        <div id="admin-nav-section" style="display:none;">
+          <div class="ns ns-admin"><i class="ti ti-shield" aria-hidden="true" style="color:var(--ye);font-size:11px;"></i> Staff Admin</div>
+          <div class="ni admin-ni" onclick="show('admin')"><i class="ti ti-edit" aria-hidden="true"></i> Admin Panel</div>
+        </div>
+      </div>
+      <div class="side-footer">
+        <a onclick="show('privacy')"><i class="ti ti-lock" aria-hidden="true"></i> Privacy Policy</a>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div id="panel-home" class="panel active">
+        <div class="ph" id="home-greeting"><i class="ti ti-home" aria-hidden="true" style="color:var(--oo);"></i> Welcome back!</div>
+        <div class="ps">Your senior year notebook &mdash; 1010 N. Main St, Santa Ana &nbsp;<span class="live-dot"></span><span style="font-size:11px;color:var(--ink3);">Live updates on</span></div>
+        <div class="g3" style="margin-bottom:12px;">
+          <div class="nb-card" style="text-align:center;cursor:pointer;border-top:3px solid var(--oo);" onclick="show('scholarships')"><div style="font-size:22px;color:var(--oo);margin-bottom:4px;"><i class="ti ti-award" aria-hidden="true"></i></div><div style="font-family:var(--T);font-size:24px;font-weight:700;" id="dash-sc">—</div><div style="font-family:var(--P);font-size:12px;font-weight:700;color:var(--ink3);">arts scholarships</div></div>
+          <div class="nb-card" style="text-align:center;cursor:pointer;border-top:3px solid var(--bl);" onclick="show('college')"><div style="font-size:22px;color:var(--bl);margin-bottom:4px;"><i class="ti ti-building-community" aria-hidden="true"></i></div><div style="font-family:var(--T);font-size:24px;font-weight:700;" id="dash-dl">—</div><div style="font-family:var(--P);font-size:12px;font-weight:700;color:var(--ink3);">deadlines tracked</div></div>
+          <div class="nb-card" style="text-align:center;cursor:pointer;border-top:3px solid var(--ye);" onclick="show('events')"><div style="font-size:22px;color:var(--ye);margin-bottom:4px;"><i class="ti ti-star" aria-hidden="true"></i></div><div style="font-family:var(--T);font-size:24px;font-weight:700;" id="dash-ev">—</div><div style="font-family:var(--P);font-size:12px;font-weight:700;color:var(--ink3);">OCSA events</div></div>
+        </div>
+        <div class="nb-card">
+          <div class="ct"><i class="ti ti-chart-bar" aria-hidden="true" style="color:var(--bl);"></i> Checklist Progress</div>
+          <div style="font-family:var(--P);font-size:13px;font-weight:700;color:var(--ink3);margin:4px 0;" id="dash-prog-text">Loading...</div>
+          <div class="pb-wrap"><div class="pb" id="dash-prog-bar" style="background:var(--oo);"></div></div>
+          <div style="font-family:var(--T);font-size:13px;font-weight:700;color:var(--oo);margin-top:8px;cursor:pointer;" onclick="show('checklist')">Open my checklist &rarr;</div>
+        </div>
+        <div class="nb-card">
+          <div class="ct"><i class="ti ti-flame" aria-hidden="true" style="color:var(--re);"></i> Urgent Deadlines</div>
+          <div class="dl-row"><div style="flex:1;"><div class="dl-name">FAFSA &mdash; file now</div><div class="dl-desc">Federal student aid</div></div><div class="dl-right"><span class="dl-date">ASAP</span><span class="bdg br">don't wait</span></div></div>
+          <div class="dl-row"><div style="flex:1;"><div class="dl-name">UC / CSU application</div><div class="dl-desc">Hard deadline</div></div><div class="dl-right"><span class="dl-date">Nov 30</span></div></div>
+          <div class="dl-row"><div style="flex:1;"><div class="dl-name">Common App early action</div><div class="dl-desc">Private college early apps</div></div><div class="dl-right"><span class="dl-date">Nov 1&ndash;15</span></div></div>
+        </div>
+        <div class="nb-card" style="border-left:4px solid var(--pi);border-radius:0 3px 3px 0;">
+          <div class="ct"><i class="ti ti-heart" aria-hidden="true" style="color:var(--pi);"></i> Your Mental Health Matters</div>
+          <div class="cb">Senior year is a lot. If you're feeling overwhelmed, support is always here.</div>
+          <div style="font-family:var(--T);font-size:13px;font-weight:700;color:var(--pi);margin-top:8px;cursor:pointer;" onclick="show('mentalhealth')">Go to mental health resources &rarr;</div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="panel-profile" class="panel">
+        <div class="ph"><i class="ti ti-user" aria-hidden="true" style="color:var(--oo);"></i> My Profile</div>
+        <div class="ps">Your personal OCSA Senior Hub account</div>
+        <div class="profile-card">
+          <div class="pa-lg" id="profile-avatar-lg"></div>
+          <div><div class="pname" id="profile-name-display"></div><div class="pdetail" id="profile-conservatory-display"></div><div class="pdetail" id="profile-email-display"></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box" style="border-color:var(--oo);"><div class="sv" id="stat-done">0</div><div class="sl">done</div></div>
+          <div class="stat-box" style="border-color:var(--bl);"><div class="sv" id="stat-left">0</div><div class="sl">to go</div></div>
+          <div class="stat-box" style="border-color:var(--ye);"><div class="sv" id="stat-pct">0%</div><div class="sl">complete</div></div>
+        </div>
+        <div class="nb-card">
+          <div class="ct">Edit Your Profile</div>
+          <span class="nb-label-form">Display name</span><input class="nb-input" type="text" id="edit-name" placeholder="Your name"/>
+          <span class="nb-label-form">Conservatory</span>
+          <select class="nb-select" id="edit-conservatory">
+            <option value="">Select...</option>
+            <option>Acting</option><option>Arts &amp; Enterprise</option>
+            <option>Classical &amp; Contemporary Dance</option><option>Classical Voice</option>
+            <option>Commercial Dance</option><option>Creative Writing</option>
+            <option>Culinary Arts &amp; Hospitality</option><option>Digital Media</option>
+            <option>Film &amp; Television</option><option>Integrated Arts</option>
+            <option>International Dance</option><option>Instrumental Music</option>
+            <option>Musical Theater</option><option>Popular Music</option>
+            <option>Production &amp; Design</option><option>Visual Arts</option>
+          </select>
+          <span class="nb-label-form">College goal (optional)</span>
+          <input class="nb-input" type="text" id="edit-goal" placeholder="e.g. CalArts, NYU Tisch, UCLA..."/>
+          <button class="stamp-btn-sm" onclick="saveProfile()"><i class="ti ti-check" aria-hidden="true"></i> Save changes</button>
+          <div id="profile-saved" style="display:none;font-family:var(--P);font-size:13px;font-weight:700;color:#1a7a5a;margin-top:9px;"><i class="ti ti-circle-check" aria-hidden="true"></i> Saved!</div>
+        </div>
+        <div class="nb-card">
+          <div class="ct" style="color:var(--re);"><i class="ti ti-logout" aria-hidden="true"></i> Sign Out</div>
+          <div class="cb" style="margin-bottom:10px;">Your progress is saved &mdash; sign back in any time.</div>
+          <button onclick="signOut()" style="padding:9px 18px;border:2px solid var(--re);border-radius:3px;background:transparent;color:var(--re);font-family:var(--T);font-size:13px;font-weight:700;cursor:pointer;">Sign out</button>
+        </div>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div id="panel-checklist" class="panel">
+        <div class="ph"><i class="ti ti-list-check" aria-hidden="true" style="color:#1a7a5a;"></i> Senior Checklist</div>
+        <div class="ps">Tap to check off tasks &mdash; progress saves automatically to your account</div>
+        <div class="nb-card"><div id="chk-list"></div></div>
+        <div style="font-family:var(--P);font-size:13px;font-weight:700;color:var(--ink3);margin-top:8px;text-align:center;" id="chk-prog-text"></div>
+      </div>
+
+      <!-- SCHOLARSHIPS -->
+      <div id="panel-scholarships" class="panel">
+        <div class="ph"><i class="ti ti-award" aria-hidden="true" style="color:var(--ye);"></i> Arts Scholarships <span class="live-dot" style="margin-left:4px;"></span></div>
+        <div class="ps">Curated for OCSA students &mdash; updated live by OCSA staff</div>
+        <div class="nb-card" id="scholarships-list"><div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">Loading scholarships...</div></div>
+        <div style="text-align:center;margin-top:6px;"><button class="stamp-btn-sm" onclick="aiPrompt('Find arts scholarships for an OCSA senior in Santa Ana, California specific to my conservatory')"><i class="ti ti-search" aria-hidden="true"></i> Find more scholarships &rarr;</button></div>
+      </div>
+
+      <!-- COLLEGE DEADLINES -->
+      <div id="panel-college" class="panel">
+        <div class="ph"><i class="ti ti-building-community" aria-hidden="true" style="color:var(--bl);"></i> College Deadlines <span class="live-dot" style="margin-left:4px;"></span></div>
+        <div class="ps">Updated live by OCSA staff &mdash; tap Add to save any deadline to your calendar</div>
+        <div id="deadlines-list"></div>
+      </div>
+
+      <!-- EVENTS -->
+      <div id="panel-events" class="panel">
+        <div class="ph"><i class="ti ti-calendar-event" aria-hidden="true" style="color:var(--ye);"></i> OCSA Senior Events <span class="live-dot" style="margin-left:4px;"></span></div>
+        <div class="ps">Updated live by OCSA staff &mdash; tap Add to save to your calendar</div>
+        <div class="nb-card"><div id="ev-list"><div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">Loading events...</div></div></div>
+        <div class="nb-card"><div class="ct"><i class="ti ti-info-circle" aria-hidden="true" style="color:var(--bl);"></i> Confirm Official Dates</div><div class="cb">Always confirm exact dates at ocsarts.net. Staff will keep this page updated.</div></div>
+      </div>
+
+      <!-- ACTIVITIES -->
+      <div id="panel-activities" class="panel">
+        <div class="ph"><i class="ti ti-confetti" aria-hidden="true" style="color:var(--oo);"></i> Fun Senior Activities</div>
+        <div class="ps">OCSA-specific ideas + classic senior memories near Santa Ana</div>
+        <div class="act-grid" style="margin-bottom:12px;">
+          <div class="act-card" onclick="aiPrompt('Ideas for a senior class art project or collab mural at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-brush" aria-hidden="true"></i></div><div class="lb">Senior Art Project</div><div class="dc">Collab mural or installation</div></div>
+          <div class="act-card" onclick="aiPrompt('Ideas for a senior film screening night at OCSA')"><div class="ic" style="color:var(--re);"><i class="ti ti-movie" aria-hidden="true"></i></div><div class="lb">Senior Film Night</div><div class="dc">Screen your best work</div></div>
+          <div class="act-card" onclick="aiPrompt('Plan a senior road trip from Santa Ana, California')"><div class="ic" style="color:var(--bl);"><i class="ti ti-car" aria-hidden="true"></i></div><div class="lb">Senior Road Trip</div><div class="dc">Best spots from Santa Ana</div></div>
+          <div class="act-card" onclick="aiPrompt('Senior year bucket list for OCSA students')"><div class="ic" style="color:var(--ye);"><i class="ti ti-list-check" aria-hidden="true"></i></div><div class="lb">OCSA Bucket List</div><div class="dc">Before you graduate</div></div>
+          <div class="act-card" onclick="aiPrompt('Fun things to do near downtown Santa Ana for high school seniors')"><div class="ic" style="color:var(--pi);"><i class="ti ti-map-pin" aria-hidden="true"></i></div><div class="lb">Explore Santa Ana</div><div class="dc">Art District, food, murals</div></div>
+          <div class="act-card" onclick="aiPrompt('How to put together a senior class time capsule at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-package" aria-hidden="true"></i></div><div class="lb">Class Time Capsule</div><div class="dc">Preserve this era</div></div>
+        </div>
+        <div class="nb-card"><div class="ct"><i class="ti ti-map" aria-hidden="true" style="color:var(--bl);"></i> Near OCSA This Summer</div><div class="cb">Laguna Beach, Joshua Tree, Big Bear, Palm Springs, Balboa Park, and the Santa Ana Arts District are all close. The PCH up to Santa Barbara is one of the best California drives.</div></div>
+      </div>
+
+      <!-- AUDITIONS -->
+      <div id="panel-auditions" class="panel">
+        <div class="ph"><i class="ti ti-microphone" aria-hidden="true" style="color:var(--pi);"></i> Audition &amp; Portfolio Tips</div>
+        <div class="ps">OCSA-trained artists applying to arts colleges &mdash; stand out</div>
+        <div class="nb-card"><div class="ct">Get Tips by Conservatory</div>
+          <div class="cons-grid">
+            <div class="con-tag" onclick="aiPrompt('Audition tips for college Musical Theater programs as an OCSA student')"><i class="ti ti-masks-theater" aria-hidden="true"></i> Musical Theater</div>
+            <div class="con-tag" onclick="aiPrompt('Audition tips for college Acting programs as an OCSA student')"><i class="ti ti-user" aria-hidden="true"></i> Acting</div>
+            <div class="con-tag" onclick="aiPrompt('Portfolio tips for college Dance programs as an OCSA student')"><i class="ti ti-star" aria-hidden="true"></i> Dance</div>
+            <div class="con-tag" onclick="aiPrompt('Portfolio tips for Visual Arts college programs as an OCSA student')"><i class="ti ti-palette" aria-hidden="true"></i> Visual Arts</div>
+            <div class="con-tag" onclick="aiPrompt('Audition tips for college music programs as an OCSA student')"><i class="ti ti-music" aria-hidden="true"></i> Instrumental / Voice</div>
+            <div class="con-tag" onclick="aiPrompt('Portfolio tips for film school as an OCSA Film and Television student')"><i class="ti ti-movie" aria-hidden="true"></i> Film &amp; Television</div>
+            <div class="con-tag" onclick="aiPrompt('Portfolio tips for digital media college programs as an OCSA student')"><i class="ti ti-device-laptop" aria-hidden="true"></i> Digital Media</div>
+            <div class="con-tag" onclick="aiPrompt('Application tips for Creative Writing college programs as an OCSA student')"><i class="ti ti-pencil" aria-hidden="true"></i> Creative Writing</div>
+          </div>
+        </div>
+        <div class="nb-card"><div class="ct">Universal Tips</div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--oo);">1</div><div class="tip-t"><strong>Lead with your strongest work</strong><span>First and last impressions are everything &mdash; put your best piece there.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--bl);">2</div><div class="tip-t"><strong>Your OCSA training is your edge</strong><span>Professional-level training since middle school. Name your conservatory &mdash; own it.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--re);">3</div><div class="tip-t"><strong>Research each school's culture</strong><span>CalArts, USC Thornton, Berklee, and NYU Tisch each have very different vibes.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--pi);">4</div><div class="tip-t"><strong>Record and get honest notes</strong><span>Film practice auditions. Ask your conservatory director for a real critique.</span></div></div>
+        </div>
+      </div>
+
+      <!-- ESSAYS -->
+      <div id="panel-essays" class="panel">
+        <div class="ph"><i class="ti ti-pencil" aria-hidden="true" style="color:var(--oo);"></i> Essay Writing Tips</div>
+        <div class="ps">Your artistic voice is your greatest asset &mdash; use it</div>
+        <div class="nb-card">
+          <div class="tip-row"><div class="tip-n" style="background:var(--oo);">1</div><div class="tip-t"><strong>Write like an artist, not a student</strong><span>Sound like you &mdash; not a template. Authenticity beats vocabulary every time.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--bl);">2</div><div class="tip-t"><strong>Start in the middle of a moment</strong><span>A rehearsal, a performance, backstage. Skip the thesis opener.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--re);">3</div><div class="tip-t"><strong>Small story, big meaning</strong><span>One specific afternoon can carry a huge theme. Don't list everything you've done.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--ye);">4</div><div class="tip-t"><strong>Show growth, not perfection</strong><span>How you responded to rejection is more compelling than a highlight reel.</span></div></div>
+          <div class="tip-row"><div class="tip-n" style="background:var(--pi);">5</div><div class="tip-t"><strong>Get 3 readers before submitting</strong><span>Conservatory director, a classmate, and someone outside your art world.</span></div></div>
+        </div>
+        <div class="nb-card">
+          <div class="ct">Get Feedback on Your Draft</div>
+          <div class="cb" style="margin-bottom:6px;">Paste your essay below and click the button — feedback will open in a new Claude chat.</div>
+          <textarea class="nb-textarea" id="essay-box" placeholder="Paste your college essay here..."></textarea>
+          <button class="stamp-btn-sm" onclick="submitEssay()"><i class="ti ti-send" aria-hidden="true"></i> Get essay feedback</button>
+        </div>
+      </div>
+
+      <!-- SAT/ACT -->
+      <div id="panel-testing" class="panel">
+        <div class="ph"><i class="ti ti-clipboard-check" aria-hidden="true" style="color:var(--bl);"></i> SAT / ACT Help</div>
+        <div class="ps">Many arts colleges are test-optional &mdash; here's what you need to know</div>
+        <div class="nb-card"><div class="ct"><i class="ti ti-info-circle" aria-hidden="true" style="color:#1a7a5a;"></i> Test-Optional at Top Arts Schools</div><div class="cb">All UC campuses are test-free (since 2021). All CSU campuses are test-free (since 2022). CalArts, Berklee, NYU Tisch, and most private arts colleges are test-optional. Always confirm each school's current policy before applying.</div></div>
+        <div class="g2" style="margin-bottom:12px;">
+          <div class="nb-card"><div class="ct"><i class="ti ti-chart-line" aria-hidden="true" style="color:var(--bl);"></i> SAT</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;"><div class="stat-c"><div class="sl">max score</div><div class="sv">1600</div></div><div class="stat-c"><div class="sl">national avg</div><div class="sv">1050</div></div></div><div class="cb">Math + Reading/Writing. Digital format. 7 test dates per year.</div></div>
+          <div class="nb-card"><div class="ct"><i class="ti ti-chart-line" aria-hidden="true" style="color:var(--re);"></i> ACT</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;"><div class="stat-c"><div class="sl">max score</div><div class="sv">36</div></div><div class="stat-c"><div class="sl">national avg</div><div class="sv">21</div></div></div><div class="cb">English, Math, Reading, Science. 7 test dates per year.</div></div>
+        </div>
+      </div>
+
+      <!-- MENTAL HEALTH -->
+      <div id="panel-mentalhealth" class="panel">
+        <div class="ph"><i class="ti ti-heart" aria-hidden="true" style="color:var(--pi);"></i> Mental Health &amp; Wellbeing</div>
+        <div class="ps">Senior year is exciting and overwhelming at the same time. This page is here for you.</div>
+        <div class="crisis-box">
+          <div class="ct"><i class="ti ti-urgent" aria-hidden="true"></i> If You Need Immediate Support</div>
+          <div class="cb" style="color:#8c1010;margin-bottom:10px;">If you're in crisis or having thoughts of harming yourself, please reach out now.</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-family:var(--P);font-size:13px;font-weight:700;">
+            <div style="color:#7a0c0c;"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>988 Suicide &amp; Crisis Lifeline &mdash; call or text <strong>988</strong></div>
+            <div style="color:#8c1010;"><i class="ti ti-message" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>Crisis Text Line &mdash; text <strong>HOME</strong> to <strong>741741</strong></div>
+            <div style="color:#8c1010;"><i class="ti ti-phone" aria-hidden="true" style="vertical-align:-2px;margin-right:5px;"></i>OC Crisis Line &mdash; <strong>(877) 727-4747</strong></div>
+          </div>
+        </div>
+        <div class="nb-card">
+          <div class="ct"><i class="ti ti-mood-smile" aria-hidden="true" style="color:var(--pi);"></i> How Are You Feeling Today?</div>
+          <div class="cb" style="margin-bottom:12px;">Your responses stay completely private &mdash; never shared with staff or other students.</div>
+          <div class="mood-grid">
+            <div class="mood-card" style="border-color:var(--ye);" onclick="selectMood(this,'great')"><span class="moji">😊</span><div class="ml">Great</div></div>
+            <div class="mood-card" style="border-color:var(--bl);" onclick="selectMood(this,'okay')"><span class="moji">😐</span><div class="ml">Okay</div></div>
+            <div class="mood-card" style="border-color:var(--oo);" onclick="selectMood(this,'stressed')"><span class="moji">😰</span><div class="ml">Stressed</div></div>
+            <div class="mood-card" style="border-color:var(--pi);" onclick="selectMood(this,'struggling')"><span class="moji">😔</span><div class="ml">Struggling</div></div>
+          </div>
+          <div id="mood-response" style="font-family:var(--P);font-size:13px;font-weight:600;display:none;padding:11px 13px;background:var(--pa2);border-radius:2px;line-height:1.65;border-left:4px solid var(--pi);"></div>
+        </div>
+        <div class="nb-card"><div class="ct"><i class="ti ti-bulb" aria-hidden="true" style="color:var(--ye);"></i> Coping Tips for Arts Students</div>
+          <div class="tip-mh" style="background:#fef5d6;border:2px dashed var(--ye);"><div class="tct" style="color:#6b4e00;"><i class="ti ti-music" aria-hidden="true"></i> Use your art as an outlet</div><div class="tcb" style="color:#7a5800;">Create something just for you &mdash; imperfect, unfinished, not for any audition or grade.</div></div>
+          <div class="tip-mh" style="background:#dce8f8;border:2px dashed var(--bl);"><div class="tct" style="color:#0e2d68;"><i class="ti ti-clock" aria-hidden="true"></i> Protect non-application time</div><div class="tcb" style="color:#1a3d78;">At least one hour a day that belongs only to you &mdash; not apps, not rehearsal, not homework.</div></div>
+          <div class="tip-mh" style="background:#fce0e0;border:2px dashed var(--re);"><div class="tct" style="color:#7a0c0c;"><i class="ti ti-moon" aria-hidden="true"></i> Sleep is not optional</div><div class="tcb" style="color:#8c1010;">Chronic sleep deprivation tanks auditions, essays, and judgment. It's not a badge of honor.</div></div>
+          <div class="tip-mh" style="background:#fde8dc;border:2px dashed var(--oo);"><div class="tct" style="color:#8c2e0a;"><i class="ti ti-refresh" aria-hidden="true"></i> Rejection is not failure</div><div class="tcb" style="color:#9e3510;">Every working artist has been rejected. A college rejection is not a verdict on your talent.</div></div>
+        </div>
+        <div class="nb-card"><div class="ct"><i class="ti ti-building-hospital" aria-hidden="true" style="color:var(--pi);"></i> Resources</div>
+          <div class="mh-resource"><div class="mh-icon" style="background:#fde0ef;"><i class="ti ti-building" aria-hidden="true" style="color:var(--pi);"></i></div><div><div class="rname">OCSA School Counselors</div><div class="rdesc">Your first stop on campus &mdash; can support, listen, or connect you with resources.</div><div class="rcontact">Student Services &middot; 1010 N. Main St</div></div></div>
+          <div class="mh-resource"><div class="mh-icon" style="background:#fde0ef;"><i class="ti ti-phone" aria-hidden="true" style="color:var(--pi);"></i></div><div><div class="rname">988 Suicide &amp; Crisis Lifeline</div><div class="rdesc">Free, confidential support 24/7. Call or text.</div><div class="rcontact">Call or text 988</div></div></div>
+          <div class="mh-resource"><div class="mh-icon" style="background:#fde0ef;"><i class="ti ti-school" aria-hidden="true" style="color:var(--pi);"></i></div><div><div class="rname">Teen Line</div><div class="rdesc">Teens talking to teens. Trained teen volunteers in LA.</div><div class="rcontact">Call (800) 852-8336 or text TEEN to 839863</div></div></div>
+          <div class="mh-resource"><div class="mh-icon" style="background:#fde0ef;"><i class="ti ti-device-mobile" aria-hidden="true" style="color:var(--pi);"></i></div><div><div class="rname">Headspace (free for students)</div><div class="rdesc">Guided meditation and sleep support.</div><div class="rcontact">headspace.com/students</div></div></div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <div id="panel-help" class="panel">
+        <div class="ph"><i class="ti ti-help-circle" aria-hidden="true" style="color:var(--oo);"></i> Get Help</div>
+        <div class="ps">Submit a question to our team, browse FAQs, or find the right contact</div>
+        <div class="tab-bar">
+          <div class="tab active" onclick="switchHTab('submit',this)"><i class="ti ti-send" aria-hidden="true"></i> Ask a question</div>
+          <div class="tab" onclick="switchHTab('faq',this)"><i class="ti ti-help-circle" aria-hidden="true"></i> FAQs</div>
+          <div class="tab" onclick="switchHTab('inbox',this)"><i class="ti ti-inbox" aria-hidden="true"></i> Recent answers</div>
+          <div class="tab" onclick="switchHTab('contacts',this)"><i class="ti ti-users" aria-hidden="true"></i> Who to contact</div>
+        </div>
+        <div id="htab-submit" class="htab active">
+          <div class="nb-card"><div class="ct">Submit Your Question</div><div class="cb" style="margin-bottom:13px;">Our OCSA senior support team replies within 1&ndash;2 school days.</div>
+            <div id="submit-form">
+              <span class="nb-label-form">Your name</span><input class="nb-input" type="text" id="f-name" placeholder="First and last name"/>
+              <span class="nb-label-form">Category</span>
+              <select class="nb-select" id="f-category"><option value="">What's your question about?</option><option>Scholarships &amp; financial aid</option><option>College applications &amp; deadlines</option><option>Auditions &amp; portfolios</option><option>Essay writing</option><option>SAT / ACT testing</option><option>Senior events &amp; activities</option><option>Graduation requirements</option><option>Letters of recommendation</option><option>Gap year &amp; next steps</option><option>Other</option></select>
+              <span class="nb-label-form">Your question</span><textarea class="nb-textarea" id="f-question" placeholder="The more detail you include, the better we can help..."></textarea>
+              <span class="nb-label-form">Email</span><input class="nb-input" type="email" id="f-email" placeholder="your.name@students.ocsarts.net"/>
+              <button class="stamp-btn-sm" onclick="submitQ()"><i class="ti ti-send" aria-hidden="true"></i> Send question</button>
+            </div>
+            <div class="success-box" id="submit-success"><i class="ti ti-circle-check bti" aria-hidden="true"></i><strong>Question Submitted!</strong><span>The OCSA team will respond within 1&ndash;2 school days.</span></div>
+          </div>
+        </div>
+        <div id="htab-faq" class="htab">
+          <div class="nb-card"><div class="ct" style="margin-bottom:6px;">Frequently Asked Questions</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+              <span class="bdg bo" style="cursor:pointer;padding:3px 10px;" onclick="filterFaq('all')">All</span>
+              <span class="bdg bb" style="cursor:pointer;padding:3px 10px;" onclick="filterFaq('college')">College</span>
+              <span class="bdg bt" style="cursor:pointer;padding:3px 10px;" onclick="filterFaq('scholarships')">Scholarships</span>
+              <span class="bdg bp" style="cursor:pointer;padding:3px 10px;" onclick="filterFaq('arts')">Arts</span>
+              <span class="bdg by" style="cursor:pointer;padding:3px 10px;" onclick="filterFaq('senior')">Senior life</span>
+            </div>
+            <div id="faq-list"></div>
+          </div>
+        </div>
+        <div id="htab-inbox" class="htab">
+          <div class="nb-card"><div class="ct" style="margin-bottom:6px;">Recent Answers from Our Team</div>
+            <div class="inbox-row"><div class="avatar" style="background:#fde8dc;color:#8c2e0a;">MV</div><div class="inbox-meta"><div class="inbox-name"><span class="dot"></span>Maria V. &mdash; Musical Theater</div><div class="inbox-preview">"Do I need a separate audition video for CalArts if I already sent one through Common App?"</div><div class="inbox-reply">Yes &mdash; CalArts uses its own audition portal. Both must be completed. The CalArts portal is what conservatory faculty reviews.</div></div><div class="inbox-time">2d ago</div></div>
+            <div class="inbox-row"><div class="avatar" style="background:#dce8f8;color:#0e2d68;">JR</div><div class="inbox-meta"><div class="inbox-name"><span class="dot"></span>Jordan R. &mdash; Film &amp; Television</div><div class="inbox-preview">"Is the FAFSA the same as the CSS Profile?"</div><div class="inbox-reply">No &mdash; FAFSA covers federal and state aid. CSS Profile is required separately by many private colleges for their own institutional grants.</div></div><div class="inbox-time">3d ago</div></div>
+            <div class="inbox-row"><div class="avatar" style="background:#fde0ef;color:#700038;">AL</div><div class="inbox-meta"><div class="inbox-name"><span class="dot"></span>Aiden L. &mdash; Visual Arts</div><div class="inbox-preview">"How many pieces in my portfolio?"</div><div class="inbox-reply">Typically 10&ndash;20, varies by school. Lead with your strongest, show range, and check each school's portal for specific requirements.</div></div><div class="inbox-time">5d ago</div></div>
+          </div>
+        </div>
+        <div id="htab-contacts" class="htab">
+          <div class="nb-card"><div class="ct" style="margin-bottom:6px;">OCSA Senior Support Team</div><div class="cb" style="margin-bottom:13px;">Not sure who to ask? Here's who handles what.</div>
+            <div class="contact-grid">
+              <div class="con-card" style="border-color:var(--oo);"><div class="cn">Student Services</div><div class="cr">Graduation, transcripts, general support</div><div class="ce"><i class="ti ti-mail" aria-hidden="true"></i> studentservices@ocsarts.net</div></div>
+              <div class="con-card" style="border-color:var(--bl);"><div class="cn">College Counseling</div><div class="cr">Applications, deadlines, letters of rec, FAFSA</div><div class="ce"><i class="ti ti-mail" aria-hidden="true"></i> counseling@ocsarts.net</div></div>
+              <div class="con-card" style="border-color:var(--pi);"><div class="cn">Arts Conservatories</div><div class="cr">Auditions, portfolios, conservatory questions</div><div class="ce"><i class="ti ti-mail" aria-hidden="true"></i> arts@ocsarts.net</div></div>
+              <div class="con-card" style="border-color:var(--ye);"><div class="cn">Financial Aid</div><div class="cr">Scholarships, FAFSA, Cal Grant, award letters</div><div class="ce"><i class="ti ti-mail" aria-hidden="true"></i> financialaid@ocsarts.net</div></div>
+            </div>
+            <div style="margin-top:11px;font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink3);background:var(--pa2);border-radius:2px;padding:9px 12px;border:2px dashed rgba(26,18,9,0.18);"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:13px;vertical-align:-2px;margin-right:4px;"></i>Email addresses above are placeholders &mdash; update with real staff contacts before student launch.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN PANEL -->
+      <div id="panel-admin" class="panel">
+        <div class="ph"><i class="ti ti-shield" aria-hidden="true" style="color:var(--ye);"></i> Admin Panel <span class="admin-badge">Staff only</span></div>
+        <div class="ps">Changes you make here appear live for all students instantly.</div>
+        <div class="nb-card" style="border-left:4px solid var(--ye);border-radius:0 3px 3px 0;">
+          <div class="ct"><i class="ti ti-users" aria-hidden="true" style="color:var(--ye);"></i> Admin Access List <span class="bdg by">10 accounts</span></div>
+          <div class="cb" style="margin-bottom:11px;">The following email addresses have full admin access to this panel:</div>
+          <div id="admin-email-list"></div>
+        </div>
+        <div class="admin-panel-wrap">
+          <div class="admin-panel-hdr"><i class="ti ti-calendar-plus" aria-hidden="true"></i> Add OCSA Event</div>
+          <div class="admin-panel-body">
+            <div class="form-row">
+              <div><span class="admin-label">Event name</span><input class="admin-input" id="a-ev-name" placeholder="e.g. Senior Prom 🎉"/></div>
+              <div><span class="admin-label">Date display</span><input class="admin-input" id="a-ev-date" placeholder="e.g. Jun 6, 2026"/></div>
+            </div>
+            <span class="admin-label">Month &amp; Day (for date box)</span>
+            <div class="form-row"><input class="admin-input" id="a-ev-mo" placeholder="Jun"/><input class="admin-input" id="a-ev-dy" placeholder="6"/></div>
+            <span class="admin-label">Description</span><textarea class="admin-input" id="a-ev-desc" style="height:55px;resize:vertical;margin-top:3px;" placeholder="Short description..."></textarea>
+            <span class="admin-label">Color</span>
+            <select class="admin-select" id="a-ev-color"><option value="var(--oo)">Orange</option><option value="var(--bl)">Blue</option><option value="var(--ye)">Yellow</option><option value="var(--re)">Red</option><option value="var(--pi)">Pink</option></select>
+            <button class="stamp-btn-sm green" onclick="addEvent()"><i class="ti ti-plus" aria-hidden="true"></i> Add event</button>
+            <div class="success-msg" id="ev-saved"><i class="ti ti-circle-check" aria-hidden="true"></i> Event added &mdash; live for all students!</div>
+          </div>
+        </div>
+        <div class="admin-panel-wrap">
+          <div class="admin-panel-hdr"><i class="ti ti-award" aria-hidden="true"></i> Add Scholarship</div>
+          <div class="admin-panel-body">
+            <span class="admin-label">Scholarship name</span><input class="admin-input" id="a-sc-name" placeholder="e.g. National Art Honor Society Scholarship"/>
+            <div class="form-row">
+              <div><span class="admin-label">Deadline</span><input class="admin-input" id="a-sc-dead" placeholder="e.g. Mar 15, 2027"/></div>
+              <div><span class="admin-label">Badge label</span><input class="admin-input" id="a-sc-badge" placeholder="e.g. National"/></div>
+            </div>
+            <span class="admin-label">Badge color</span>
+            <select class="admin-select" id="a-sc-color"><option value="bo">Orange</option><option value="bb">Blue</option><option value="br">Red</option><option value="by">Yellow</option><option value="bp">Pink</option><option value="bt">Teal</option><option value="bg2">Green</option></select>
+            <span class="admin-label">Description</span><textarea class="admin-input" id="a-sc-desc" style="height:55px;resize:vertical;margin-top:3px;" placeholder="Eligibility, amount, requirements..."></textarea>
+            <span class="admin-label">Left border color</span>
+            <select class="admin-select" id="a-sc-bdr"><option value="var(--oo)">Orange</option><option value="var(--bl)">Blue</option><option value="var(--re)">Red</option><option value="var(--ye)">Yellow</option><option value="var(--pi)">Pink</option></select>
+            <button class="stamp-btn-sm green" onclick="addScholarship()"><i class="ti ti-plus" aria-hidden="true"></i> Add scholarship</button>
+            <div class="success-msg" id="sc-saved"><i class="ti ti-circle-check" aria-hidden="true"></i> Scholarship added &mdash; live for all students!</div>
+          </div>
+        </div>
+        <div class="admin-panel-wrap">
+          <div class="admin-panel-hdr"><i class="ti ti-calendar-event" aria-hidden="true"></i> Add College Deadline</div>
+          <div class="admin-panel-body">
+            <span class="admin-label">Deadline name</span><input class="admin-input" id="a-dl-name" placeholder="e.g. CalArts Application Due"/>
+            <div class="form-row">
+              <div><span class="admin-label">Date</span><input class="admin-input" id="a-dl-date" placeholder="e.g. Jan 5, 2027"/></div>
+              <div><span class="admin-label">Category</span><select class="admin-select" id="a-dl-cat"><option value="finaid">Financial Aid</option><option value="uccs">UC &amp; CSU</option><option value="arts">Arts Colleges</option></select></div>
+            </div>
+            <span class="admin-label">Description</span><input class="admin-input" id="a-dl-desc" placeholder="e.g. Portfolio + audition required"/>
+            <button class="stamp-btn-sm green" onclick="addDeadline()"><i class="ti ti-plus" aria-hidden="true"></i> Add deadline</button>
+            <div class="success-msg" id="dl-saved"><i class="ti ti-circle-check" aria-hidden="true"></i> Deadline added &mdash; live for all students!</div>
+          </div>
+        </div>
+        <div class="admin-panel-wrap">
+          <div class="admin-panel-hdr"><i class="ti ti-list" aria-hidden="true"></i> Manage Existing Entries</div>
+          <div class="admin-panel-body">
+            <div class="admin-section"><div class="admin-section-title"><i class="ti ti-calendar-event" aria-hidden="true" style="color:var(--ye);"></i> Events</div><div id="admin-ev-list"></div></div>
+            <div class="admin-section"><div class="admin-section-title"><i class="ti ti-award" aria-hidden="true" style="color:var(--oo);"></i> Scholarships</div><div id="admin-sc-list"></div></div>
+            <div class="admin-section"><div class="admin-section-title"><i class="ti ti-building-community" aria-hidden="true" style="color:var(--bl);"></i> Deadlines</div><div id="admin-dl-list"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRIVACY POLICY -->
+      <div id="panel-privacy" class="panel">
+        <div class="ph"><i class="ti ti-lock" aria-hidden="true" style="color:var(--bl);"></i> Privacy Policy</div>
+        <div class="ps">Orange County School of the Arts &mdash; OCSA Senior Hub &nbsp;&middot;&nbsp; <span style="font-family:var(--T);font-size:11px;font-weight:700;background:var(--pa2);border:1.5px dashed rgba(26,18,9,0.2);border-radius:3px;padding:2px 8px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.3px;">Effective May 25, 2026</span></div>
+        <div class="pp-notice"><i class="ti ti-shield-check" aria-hidden="true"></i><div class="pp-notice-text"><strong>Summary &mdash; what matters most</strong>We collect only what's needed to run this app. We do not sell your data. We do not share it with advertisers. Student data is used only for school purposes. Users under 13 must have parental consent. You can delete your data at any time by contacting us.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-building-community" aria-hidden="true" style="color:var(--bl);"></i> 1. Who We Are</div><div class="pp-text">The OCSA Senior Hub ("the App") is operated by or on behalf of Orange County School of the Arts (OCSA), located at 1010 N. Main St, Santa Ana, CA 92701. The App is a student resource tool created for OCSA seniors. Questions about this policy should be directed to OCSA Student Services at <strong>studentservices@ocsarts.net</strong>.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-database" aria-hidden="true" style="color:var(--oo);"></i> 2. Information We Collect</div><div class="pp-text">When you create an account, we collect: <strong>name, email address, conservatory, encrypted password</strong>, and optional college goal. We also store your <strong>checklist progress</strong> and <strong>mood check-ins</strong> (private, never shared with staff).</div><div class="pp-hl"><strong>We do not collect:</strong> Social Security numbers, government IDs, financial information, biometric data, location data, device identifiers, or browsing history.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-settings" aria-hidden="true" style="color:var(--ye);"></i> 3. How We Use Your Information</div><div class="pp-text">We use your data only to operate and personalize the app, save your checklist progress across sessions, and allow OCSA staff to respond to support questions you submit.</div><div class="pp-hl"><strong>We never use your data for advertising, marketing, or commercial purposes.</strong> We do not sell, rent, trade, or share your personal information with third parties for their own use.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-user-check" aria-hidden="true" style="color:var(--re);"></i> 4. Children Under 13 <span class="pp-tag tag-coppa">COPPA</span></div><div class="pp-text">This App is directed at high school seniors (generally ages 17–18). We comply with the <strong>Children's Online Privacy Protection Act (COPPA)</strong>, enforced by the Federal Trade Commission (FTC). Users under 13 may not create an account without verified parental or guardian consent. If we become aware that a child under 13 has created an account without parental consent, we will promptly delete that account and all associated data. Parents may contact <strong>studentservices@ocsarts.net</strong> to request review and deletion.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-lock" aria-hidden="true" style="color:var(--bl);"></i> 5. Student Records <span class="pp-tag tag-ferpa">FERPA</span></div><div class="pp-text">This App does not access, store, or process official OCSA education records (grades, transcripts, disciplinary records, or enrollment status). Information you voluntarily enter is self-reported and not maintained by OCSA as part of your official FERPA-protected student record. When students turn 18, FERPA rights transfer directly to the student.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-server" aria-hidden="true" style="color:var(--oo);"></i> 6. Data Storage &amp; Security</div><div class="pp-text">Your account data is stored using browser-based storage on the platform hosting this App. Passwords are encrypted before storage. Mood check-ins are stored only in your private account and are never visible to OCSA staff, other students, or administrators.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-shield" aria-hidden="true" style="color:var(--pi);"></i> 7. Your Rights <span class="pp-tag tag-cal">California / CCPA</span></div><div class="pp-text">Under California law (including the California Consumer Privacy Act / CCPA), you have the right to <strong>access, correct, and delete</strong> your personal information at any time. Update your profile in the app, or contact <strong>studentservices@ocsarts.net</strong> for deletion requests. We will respond within 30 days. We do not sell data, so there is nothing to opt out of in that regard.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-cookie" aria-hidden="true" style="color:var(--ye);"></i> 8. Cookies &amp; Tracking</div><div class="pp-text">This App does not use advertising cookies, tracking pixels, or third-party analytics services. We use browser storage (not cookies) to maintain your login session and save your checklist progress. We do not track you across other websites.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-share" aria-hidden="true" style="color:var(--bl);"></i> 9. Third-Party Services</div><div class="pp-text"><strong>Google Calendar</strong> &mdash; if you choose to add an event to Google Calendar, you are redirected to Google's own service governed by Google's privacy policy. <strong>Google Fonts</strong> &mdash; fonts (DM Sans, Patrick Hand) are loaded from Google's font service; your IP may be received by Google as part of font delivery. No personal account data is shared. We do not use Google Analytics, Facebook Pixel, or any advertising networks.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-refresh" aria-hidden="true" style="color:var(--oo);"></i> 10. Changes to This Policy</div><div class="pp-text">If we make material changes to this Privacy Policy, we will update the effective date at the top of this page and notify users through the app. Continued use of the App after changes are posted constitutes your acceptance of the updated policy.</div></div>
+        <div class="pp-sec"><div class="pp-sec-title"><i class="ti ti-mail" aria-hidden="true" style="color:var(--bl);"></i> 11. Contact Us</div>
+          <div class="pp-contact-box">
+            <div class="pp-contact-row"><i class="ti ti-building" aria-hidden="true"></i> Orange County School of the Arts</div>
+            <div class="pp-contact-row"><i class="ti ti-map-pin" aria-hidden="true"></i> 1010 N. Main Street, Santa Ana, CA 92701</div>
+            <div class="pp-contact-row"><i class="ti ti-mail" aria-hidden="true"></i> studentservices@ocsarts.net</div>
+            <div class="pp-contact-row"><i class="ti ti-world" aria-hidden="true"></i> ocsarts.net</div>
+          </div>
+          <div class="pp-text" style="margin-top:10px;">For COPPA-related concerns (children under 13), you may also contact the FTC at <strong>ftc.gov</strong> or call <strong>1-877-FTC-HELP</strong>.</div>
+        </div>
+        <div class="pp-footer">&copy; 2026 Orange County School of the Arts. OCSA Senior Hub is a student resource tool operated for educational purposes.<br>Privacy policy last reviewed May 25, 2026. Have OCSA's attorney review before student launch.</div>
+      </div>
+
+    </div><!-- end .main -->
+  </div><!-- end .app-body -->
+
+  <!-- CONSENT BANNER -->
+  <div class="consent-banner" id="consent-banner" style="display:none;">
+    <div class="consent-text">This app stores your name, email, and checklist progress to personalize your experience. We don't sell your data. By using OCSA Senior Hub you agree to our <a onclick="show('privacy');dismissConsent()">Privacy Policy</a>.</div>
+    <button class="consent-dismiss" onclick="dismissConsent()">Got it &rarr;</button>
+  </div>
+
+</div><!-- end .app -->
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+// ─── ADMIN EMAIL LIST ───────────────────────────────────────
+// Add or remove email addresses here to control admin access.
+// Anyone who signs in with one of these emails gets the Admin badge
+// and full access to the Admin Panel.
+const ADMIN_EMAILS = [
+  // OCSA staff accounts
+  'admin@ocsarts.net',
+  'counseling@ocsarts.net',
+  'studentservices@ocsarts.net',
+  'arts@ocsarts.net',
+  'financialaid@ocsarts.net',
+  // Personal accounts with admin access
+  'henrykim.20081120@gmail.com',
+  'hyojoon.kim@ocsarts.net',
+  'shinekim008@gmail.com',
+  'shine.kim@ocsarts.net',
+  'anthony.tatsuta@ocsarts.net',
+];
+
+// ─── DEFAULT SEED DATA ──────────────────────────────────────
+// Shown before admins add anything. Edit these to update defaults.
+const DEFAULT_EVENTS = [
+  {id:'ev_1',name:"Senior Sunset 🌅",mo:"May",dy:"23",date:"May 23, 2026",desc:"Last outdoor hangout before finals — a beloved OCSA tradition.",color:"var(--ye)",isoStart:"20260523",isoEnd:"20260523"},
+  {id:'ev_2',name:"Senior Conservatory Showcases 🎭",mo:"Jun",dy:"~3",date:"Jun 3–8, 2026",desc:"Final performances and exhibitions. Your last bow on the OCSA stage.",color:"var(--pi)",isoStart:"20260603",isoEnd:"20260608"},
+  {id:'ev_3',name:"Prom 🎉",mo:"Jun",dy:"~6",date:"Jun 6, 2026",desc:"Plan your look early — OCSA seniors bring the creative energy.",color:"var(--oo)",isoStart:"20260606",isoEnd:"20260606"},
+  {id:'ev_4',name:"OCSA Graduation 🎓",mo:"Jun",dy:"~14",date:"Jun 14, 2026",desc:"The main stage — cap, gown, and a crowd that knows how to celebrate.",color:"var(--oo)",isoStart:"20260614",isoEnd:"20260614"},
+];
+const DEFAULT_SCHOLARSHIPS = [
+  {id:'sc_1',name:"Scholastic Art & Writing Awards",badge:"portfolio",bc:"bo",bdr:"var(--oo)",desc:"Most prestigious recognition program for teen artists. Gold Key winners receive scholarships at many partner schools. All OCSA disciplines eligible.",dl:"Jan 2027"},
+  {id:'sc_2',name:"CAEA Duane Hagen & Laurel Burch",badge:"California",bc:"bb",bdr:"var(--bl)",desc:"For CA seniors majoring in visual art or design. Great for Visual Arts, Digital Media, and Film conservatories.",dl:"Mar 1, 2027"},
+  {id:'sc_3',name:"Jack Kent Cooke Young Artist Award",badge:"need-based",bc:"by",bdr:"var(--ye)",desc:"$10,000 grant for outstanding young artists with financial need. Strong fit for music, dance, and theatre students.",dl:"Check jkcf.org"},
+  {id:'sc_4',name:"Cal Grant A & B",badge:"California state",bc:"bb",bdr:"var(--bl)",desc:"Up to full UC/CSU tuition. Need-based — file FAFSA or CADAA. Nearly all OCSA seniors attending a CA college should apply.",dl:"FAFSA by Mar 2, 2027"},
+  {id:'sc_5',name:"Gates Millennium Scholars",badge:"national",bc:"br",bdr:"var(--re)",desc:"Up to full college costs. Minority students, GPA 3.3+. Covers tuition, room, board, and books.",dl:"Jul 15, 2026"},
+];
+const DEFAULT_DEADLINES = {
+  finaid:[
+    {id:'dl_f1',name:"FAFSA — file now",desc:"Federal student aid",date:"ASAP",isoStart:"20261001",isoEnd:"20261001",badge:"br",badgeText:"don't wait"},
+    {id:'dl_f2',name:"California FAFSA / CADAA priority",desc:"For Cal Grant consideration",date:"Mar 2, 2027",isoStart:"20270302",isoEnd:"20270302"},
+    {id:'dl_f3',name:"CSS Profile (private arts colleges)",desc:"CalArts, USC, NYU, Berklee",date:"Rolling",isoStart:"20261101",isoEnd:"20261101"},
+  ],
+  uccs:[
+    {id:'dl_u1',name:"UC / CSU application window opens",desc:"All campuses open same day",date:"Aug 1, 2026",isoStart:"20260801",isoEnd:"20260801"},
+    {id:'dl_u2',name:"UC / CSU application deadline",desc:"No late applications accepted",date:"Nov 30, 2026",isoStart:"20261130",isoEnd:"20261130",badge:"br",badgeText:"hard deadline"},
+    {id:'dl_u3',name:"National Decision Day",desc:"Commit to your school",date:"May 1, 2027",isoStart:"20270501",isoEnd:"20270501",badge:"bg2",badgeText:"decision day"},
+  ],
+  arts:[
+    {id:'dl_a1',name:"CalArts (Valencia, CA)",desc:"Portfolio + audition required",date:"Jan 5, 2027",isoStart:"20270105",isoEnd:"20270105"},
+    {id:'dl_a2',name:"USC Thornton / Roski / SCA",desc:"Music, Art, Cinematic Arts",date:"Dec 1, 2026",isoStart:"20261201",isoEnd:"20261201"},
+    {id:'dl_a3',name:"Berklee College of Music",desc:"Audition required — schedule early",date:"Jan 15, 2027",isoStart:"20270115",isoEnd:"20270115"},
+    {id:'dl_a4',name:"NYU Tisch School of the Arts",desc:"Supplemental arts application",date:"Jan 1, 2027",isoStart:"20270101",isoEnd:"20270101"},
+    {id:'dl_a5',name:"Common App (Regular Decision)",desc:"Most private colleges",date:"Jan 1–15, 2027",isoStart:"20270101",isoEnd:"20270115"},
+  ],
+};
+
+// ─── CHECKLIST ITEMS ────────────────────────────────────────
+// Edit this array to add, remove, or change checklist tasks.
+const chkItems = [
+  {l:"Register for SAT or ACT",d:"Check if your target schools require scores",done:true},
+  {l:"Request letters of recommendation",d:"Ask conservatory director + 1 academic teacher",done:true},
+  {l:"Start your Common App essay",d:"650 words — lean into your artistic identity",done:true},
+  {l:"Research arts colleges & conservatories",d:"Reach / match / safety",done:false},
+  {l:"Complete FAFSA",d:"Opens Oct 1 — file as soon as possible",done:false},
+  {l:"Build or update your arts portfolio / reel",d:"Start early — quality over quantity",done:false},
+  {l:"Schedule auditions or portfolio reviews",d:"Many arts colleges require separate portals",done:false},
+  {l:"Apply for early action / early decision",d:"Nov 1–15 for most private schools",done:false},
+  {l:"Apply for CAEA and arts scholarships",d:"CAEA deadline: Mar 1, 2027",done:false},
+  {l:"Submit UC / CSU application",d:"Hard deadline: Nov 30, 2026",done:false},
+  {l:"Get senior conservatory photos & headshots",d:"Needed for auditions and portfolios",done:true},
+  {l:"Perform in senior conservatory showcase",d:"Your final OCSA performance",done:false},
+  {l:"Submit remaining college applications",d:"Regular decision: Jan 1–15, 2027",done:false},
+  {l:"Compare financial aid award letters",d:"Letters arrive March–April 2027",done:false},
+  {l:"Make your final college decision",d:"National Decision Day: May 1, 2027",done:false},
+  {l:"Celebrate graduation at OCSA 🎓",d:"You trained for this. Take your bow.",done:false},
+];
+const CHK_COLORS = ['var(--oo)','var(--bl)','var(--re)','var(--pi)','var(--ye)'];
+const DOT_COLORS = ['var(--oo)','var(--bl)','var(--ye)','var(--re)','var(--pi)'];
+const AVC = [{bg:'#fde8dc',c:'#8c2e0a'},{bg:'#dce8f8',c:'#0e2d68'},{bg:'#fde0ef',c:'#700038'},{bg:'#d5f0e5',c:'#0e4a32'},{bg:'#fef5d6',c:'#6b4e00'},{bg:'#fce0e0',c:'#7a0c0c'},{bg:'#dff0d0',c:'#234a10'},{bg:'#eae5fc',c:'#3a2880'}];
+
+// ─── STATE ──────────────────────────────────────────────────
+let currentUser = null, openCalDrop = null, pollInterval = null;
+let liveEvents = [], liveScholarships = [], liveDeadlines = {finaid:[],uccs:[],arts:[]};
+
+// ─── STORAGE HELPERS ────────────────────────────────────────
+// Uses localStorage when running as a hosted file.
+// Falls back to window.storage when running inside Claude.
+function hasClaudeStorage() { return typeof window.storage !== 'undefined'; }
+
+async function stGet(key) {
+  if (hasClaudeStorage()) { try { const r = await window.storage.get(key); return r ? r.value : null; } catch(e) { return null; } }
+  return localStorage.getItem(key);
+}
+async function stSet(key, val) {
+  if (hasClaudeStorage()) { try { await window.storage.set(key, val); } catch(e) {} }
+  else { localStorage.setItem(key, val); }
+}
+async function stDel(key) {
+  if (hasClaudeStorage()) { try { await window.storage.delete(key); } catch(e) {} }
+  else { localStorage.removeItem(key); }
+}
+async function stGetShared(key, fallback) {
+  if (hasClaudeStorage()) { try { const r = await window.storage.get('ocsa_shared_'+key, true); return r ? JSON.parse(r.value) : fallback; } catch(e) { return fallback; } }
+  const v = localStorage.getItem('ocsa_shared_'+key); return v ? JSON.parse(v) : fallback;
+}
+async function stSetShared(key, val) {
+  if (hasClaudeStorage()) { try { await window.storage.set('ocsa_shared_'+key, JSON.stringify(val), true); } catch(e) {} }
+  else { localStorage.setItem('ocsa_shared_'+key, JSON.stringify(val)); }
+}
+
+function sk(uid, key) { return `ocsa_${uid}_${key}`; }
+async function saveUD(uid, key, val) { await stSet(sk(uid,key), JSON.stringify(val)); }
+async function loadUD(uid, key, fb) { const v = await stGet(sk(uid,key)); return v ? JSON.parse(v) : fb; }
+async function getUsers() { const v = await stGet('ocsa_users'); return v ? JSON.parse(v) : {}; }
+async function saveUsers(u) { await stSet('ocsa_users', JSON.stringify(u)); }
+async function getLastUser() { const v = await stGet('ocsa_last_user'); return v ? JSON.parse(v) : null; }
+async function setLastUser(uid) { await stSet('ocsa_last_user', JSON.stringify(uid)); }
+async function clearLastUser() { await stDel('ocsa_last_user'); }
+
+function getAC(email) { let h=0; for(let i=0;i<email.length;i++) h=(h*31+email.charCodeAt(i))%AVC.length; return AVC[Math.abs(h)]; }
+function getInits(name) { const p=name.trim().split(' ').filter(Boolean); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():name.slice(0,2).toUpperCase(); }
+
+// ─── AUTH ────────────────────────────────────────────────────
+async function init() {
+  const last = await getLastUser();
+  if (last) { const users = await getUsers(); if (users[last]) { await loginUser(last, users[last]); return; } }
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+async function loginUser(uid, ud) {
+  currentUser = { uid, ...ud, isAdmin: ADMIN_EMAILS.includes(ud.email) };
+  currentUser.checklist = await loadUD(uid, 'checklist', null);
+  if (currentUser.checklist) { chkItems.forEach((item,i) => { if (currentUser.checklist[i] !== undefined) item.done = currentUser.checklist[i]; }); }
+  await setLastUser(uid);
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-app').classList.add('visible');
+  renderUserUI(); buildChk(); await loadLiveData(); startPolling(); renderFaqs('all');
+  const consented = await loadUD(uid, 'consent', null);
+  if (!consented) document.getElementById('consent-banner').style.display = 'flex';
+}
+
+function isAdmin() { return currentUser && currentUser.isAdmin; }
+
+function renderUserUI() {
+  if (!currentUser) return;
+  const inits = getInits(currentUser.name);
+  const ac = getAC(currentUser.email);
+  const avHtml = `<div style="width:100%;height:100%;border-radius:50%;background:${ac.bg};color:${ac.c};display:flex;align-items:center;justify-content:center;font-family:var(--T);font-size:10px;font-weight:700;">${inits}</div>`;
+  document.getElementById('topbar-avatar').innerHTML = avHtml;
+  document.getElementById('topbar-name').textContent = currentUser.name.split(' ')[0];
+  document.getElementById('topbar-admin-badge').style.display = isAdmin() ? 'inline' : 'none';
+  document.getElementById('drop-name').querySelector('span').textContent = currentUser.name;
+  document.getElementById('drop-admin-badge').style.display = isAdmin() ? 'inline' : 'none';
+  document.getElementById('drop-detail').textContent = (isAdmin() ? '⚙️ Admin · ' : '') + (currentUser.conservatory || 'OCSA · Class of 2026');
+  document.getElementById('drop-admin-link').style.display = isAdmin() ? 'flex' : 'none';
+  document.getElementById('admin-nav-section').style.display = isAdmin() ? 'block' : 'none';
+  document.getElementById('home-greeting').innerHTML = `<i class="ti ti-home" aria-hidden="true" style="color:var(--oo);"></i> Welcome back, ${currentUser.name.split(' ')[0]}!`;
+  const lgAv = document.getElementById('profile-avatar-lg');
+  lgAv.style.background = ac.bg; lgAv.style.color = ac.c; lgAv.textContent = inits;
+  document.getElementById('profile-name-display').textContent = currentUser.name;
+  document.getElementById('profile-conservatory-display').textContent = currentUser.conservatory || 'Conservatory not set';
+  document.getElementById('profile-email-display').textContent = currentUser.email;
+  document.getElementById('edit-name').value = currentUser.name;
+  document.getElementById('edit-conservatory').value = currentUser.conservatory || '';
+  document.getElementById('edit-goal').value = currentUser.goal || '';
+  renderAdminEmailList();
+}
+
+function renderAdminEmailList() {
+  const el = document.getElementById('admin-email-list'); if (!el) return;
+  el.innerHTML = ADMIN_EMAILS.map((email,i) => {
+    const isMe = currentUser && email === currentUser.email;
+    return `<div class="em-row"><div class="em-dot" style="background:${DOT_COLORS[i%DOT_COLORS.length]};"></div><span style="flex:1;">${email}</span>${isMe?'<span class="bdg by" style="font-size:9px;">you</span>':''}</div>`;
+  }).join('');
+}
+
+function googleSignIn() { proceedWithSignup('google_'+Date.now(),'OCSA Student','student@ocsarts.net','',''); }
+
+async function emailSignIn() {
+  const email = document.getElementById('si-email').value.trim();
+  const pass = document.getElementById('si-pass').value;
+  if (!email||!pass) { alert('Please enter your email and password.'); return; }
+  const users = await getUsers();
+  const uid = Object.keys(users).find(k => users[k].email === email && users[k].pass === btoa(pass));
+  if (!uid) { alert('No account found. Please check your email and password.'); return; }
+  await loginUser(uid, users[uid]);
+}
+
+async function emailSignUp() {
+  const name = document.getElementById('su-name').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const conservatory = document.getElementById('su-conservatory').value;
+  const pass = document.getElementById('su-pass').value;
+  if (!name||!email||!conservatory||!pass) { alert('Please fill in all fields.'); return; }
+  const users = await getUsers();
+  if (Object.values(users).some(u => u.email === email)) { alert('An account with that email already exists. Try signing in.'); return; }
+  await proceedWithSignup('user_'+Date.now(), name, email, conservatory, pass);
+}
+
+async function proceedWithSignup(uid, name, email, conservatory, pass) {
+  const users = await getUsers();
+  const ud = { name, email, conservatory, pass: pass ? btoa(pass) : '', goal: '' };
+  users[uid] = ud; await saveUsers(users); await loginUser(uid, ud);
+}
+
+async function saveProfile() {
+  if (!currentUser) return;
+  const name = document.getElementById('edit-name').value.trim() || currentUser.name;
+  const conservatory = document.getElementById('edit-conservatory').value;
+  const goal = document.getElementById('edit-goal').value.trim();
+  currentUser.name = name; currentUser.conservatory = conservatory; currentUser.goal = goal;
+  const users = await getUsers();
+  if (users[currentUser.uid]) { users[currentUser.uid].name = name; users[currentUser.uid].conservatory = conservatory; users[currentUser.uid].goal = goal; await saveUsers(users); }
+  renderUserUI();
+  const s = document.getElementById('profile-saved'); s.style.display='block'; setTimeout(()=>s.style.display='none',2500);
+}
+
+async function signOut() {
+  if (pollInterval) clearInterval(pollInterval);
+  currentUser = null; await clearLastUser();
+  document.getElementById('main-app').classList.remove('visible');
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('user-drop').classList.remove('open');
+  document.getElementById('submit-success').style.display = 'none';
+  document.getElementById('submit-form').style.display = 'block';
+  document.getElementById('consent-banner').style.display = 'none';
+}
+
+async function dismissConsent() {
+  document.getElementById('consent-banner').style.display = 'none';
+  if (currentUser) await saveUD(currentUser.uid, 'consent', true);
+}
+
+function showPrivacyFromAuth() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-app').classList.add('visible');
+  show('privacy');
+}
+
+// ─── LIVE DATA ───────────────────────────────────────────────
+async function loadLiveData() {
+  liveEvents = await stGetShared('events', DEFAULT_EVENTS);
+  liveScholarships = await stGetShared('scholarships', DEFAULT_SCHOLARSHIPS);
+  liveDeadlines = await stGetShared('deadlines', DEFAULT_DEADLINES);
+  renderEvents(); renderScholarships(); renderDeadlines(); updateDashCounts();
+  if (isAdmin()) renderAdminLists();
+}
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(loadLiveData, 30000); // refresh every 30 seconds
+}
+
+function updateDashCounts() {
+  const ds = document.getElementById('dash-sc'); const dd = document.getElementById('dash-dl'); const de = document.getElementById('dash-ev');
+  if (ds) ds.textContent = liveScholarships.length;
+  if (dd) dd.textContent = (liveDeadlines.finaid||[]).length + (liveDeadlines.uccs||[]).length + (liveDeadlines.arts||[]).length;
+  if (de) de.textContent = liveEvents.length;
+}
+
+// ─── RENDER FUNCTIONS ────────────────────────────────────────
+function renderEvents() {
+  const el = document.getElementById('ev-list'); if (!el) return;
+  if (!liveEvents.length) { el.innerHTML = '<div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">No events added yet. Check back soon!</div>'; return; }
+  el.innerHTML = liveEvents.map(ev => `
+    <div class="ev-row">
+      <div class="ev-box" style="border-color:${ev.color};"><div class="ev-mo" style="color:${ev.color};">${ev.mo}</div><div class="ev-dy">${ev.dy}</div></div>
+      <div class="ev-info"><strong>${ev.name}</strong><span>${ev.desc}</span></div>
+      ${calBtn(ev.name.replace(/[🌅🎭🎉🎓]/g,'').trim(), ev.isoStart, ev.isoEnd, ev.desc)}
+    </div>`).join('');
+}
+
+function renderScholarships() {
+  const el = document.getElementById('scholarships-list'); if (!el) return;
+  if (!liveScholarships.length) { el.innerHTML = '<div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">No scholarships added yet.</div>'; return; }
+  el.innerHTML = liveScholarships.map(sc => `
+    <div style="border-left:4px solid ${sc.bdr};border-radius:0 3px 3px 0;padding:11px 13px;background:rgba(255,255,255,0.7);border:1.5px solid rgba(26,18,9,0.12);border-left:4px solid ${sc.bdr};margin-bottom:9px;">
+      <div class="ct">${sc.name} <span class="bdg ${sc.bc}">${sc.badge}</span></div>
+      <div class="cb">${sc.desc}</div>
+      <div style="display:flex;justify-content:space-between;margin-top:9px;font-family:var(--P);font-size:12.5px;font-weight:700;color:var(--ink3);">
+        <span><i class="ti ti-clock" aria-hidden="true"></i> ${sc.dl}</span>
+        <span style="color:var(--oo);cursor:pointer;" onclick="aiPrompt('Tell me more about the ${sc.name.replace(/'/g,'')} scholarship for OCSA students')">Learn more &rarr;</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderDeadlines() {
+  const el = document.getElementById('deadlines-list'); if (!el) return;
+  const cats = { finaid:'Financial Aid', uccs:'UC &amp; CSU System', arts:'Arts Colleges &amp; Conservatories' };
+  el.innerHTML = Object.keys(cats).map(key => {
+    const items = (liveDeadlines[key] || []);
+    if (!items.length) return '';
+    return `<div class="nb-card" style="margin-bottom:11px;"><div class="ct">${cats[key]}</div>
+      ${items.map(dl => `<div class="dl-row">
+        <div style="flex:1;min-width:0;"><div class="dl-name">${dl.name}</div><div class="dl-desc">${dl.desc}</div></div>
+        <div class="dl-right"><span class="dl-date">${dl.date}</span>${dl.badge?`<span class="bdg ${dl.badge}">${dl.badgeText}</span>`:''}${calBtn(dl.name, dl.isoStart||'20261001', dl.isoEnd||'20261001', dl.desc)}</div>
+      </div>`).join('')}</div>`;
+  }).join('');
+}
+
+function renderAdminLists() {
+  const evEl = document.getElementById('admin-ev-list');
+  const scEl = document.getElementById('admin-sc-list');
+  const dlEl = document.getElementById('admin-dl-list');
+  if (evEl) evEl.innerHTML = liveEvents.length ? liveEvents.map(ev => `<div class="admin-list-item"><div class="nm">${ev.name}</div><div class="mt">${ev.date||ev.mo+' '+ev.dy}</div><button class="del-btn" onclick="deleteEntry('events','${ev.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No events yet.</div>';
+  if (scEl) scEl.innerHTML = liveScholarships.length ? liveScholarships.map(sc => `<div class="admin-list-item"><div class="nm">${sc.name}</div><div class="mt">${sc.dl}</div><button class="del-btn" onclick="deleteEntry('scholarships','${sc.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No scholarships yet.</div>';
+  const allDl = [...(liveDeadlines.finaid||[]),...(liveDeadlines.uccs||[]),...(liveDeadlines.arts||[])];
+  if (dlEl) dlEl.innerHTML = allDl.length ? allDl.map(dl => `<div class="admin-list-item"><div class="nm">${dl.name}</div><div class="mt">${dl.date}</div><button class="del-btn" onclick="deleteDeadline('${dl.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No deadlines yet.</div>';
+}
+
+// ─── ADMIN ACTIONS ───────────────────────────────────────────
+async function addEvent() {
+  if (!isAdmin()) return;
+  const name = document.getElementById('a-ev-name').value.trim();
+  const date = document.getElementById('a-ev-date').value.trim();
+  const mo = document.getElementById('a-ev-mo').value.trim() || '—';
+  const dy = document.getElementById('a-ev-dy').value.trim() || '—';
+  const desc = document.getElementById('a-ev-desc').value.trim();
+  const color = document.getElementById('a-ev-color').value;
+  if (!name||!desc) { alert('Please fill in the event name and description.'); return; }
+  liveEvents = [...liveEvents, {id:'ev_'+Date.now(),name,date,mo,dy,desc,color,isoStart:'20260601',isoEnd:'20260601'}];
+  await stSetShared('events', liveEvents);
+  renderEvents(); updateDashCounts(); renderAdminLists();
+  ['a-ev-name','a-ev-date','a-ev-mo','a-ev-dy','a-ev-desc'].forEach(id=>document.getElementById(id).value='');
+  showSaved('ev-saved');
+}
+
+async function addScholarship() {
+  if (!isAdmin()) return;
+  const name = document.getElementById('a-sc-name').value.trim();
+  const dl = document.getElementById('a-sc-dead').value.trim();
+  const badge = document.getElementById('a-sc-badge').value.trim();
+  const bc = document.getElementById('a-sc-color').value;
+  const bdr = document.getElementById('a-sc-bdr').value;
+  const desc = document.getElementById('a-sc-desc').value.trim();
+  if (!name||!desc) { alert('Please fill in the scholarship name and description.'); return; }
+  liveScholarships = [...liveScholarships, {id:'sc_'+Date.now(),name,badge:badge||'new',bc,bdr,desc,dl:dl||'Check website'}];
+  await stSetShared('scholarships', liveScholarships);
+  renderScholarships(); updateDashCounts(); renderAdminLists();
+  ['a-sc-name','a-sc-dead','a-sc-badge','a-sc-desc'].forEach(id=>document.getElementById(id).value='');
+  showSaved('sc-saved');
+}
+
+async function addDeadline() {
+  if (!isAdmin()) return;
+  const name = document.getElementById('a-dl-name').value.trim();
+  const date = document.getElementById('a-dl-date').value.trim();
+  const cat = document.getElementById('a-dl-cat').value;
+  const desc = document.getElementById('a-dl-desc').value.trim();
+  if (!name||!date) { alert('Please fill in the deadline name and date.'); return; }
+  if (!liveDeadlines[cat]) liveDeadlines[cat] = [];
+  liveDeadlines[cat] = [...liveDeadlines[cat], {id:'dl_'+Date.now(),name,date,desc:desc||'',isoStart:'20270101',isoEnd:'20270101'}];
+  await stSetShared('deadlines', liveDeadlines);
+  renderDeadlines(); updateDashCounts(); renderAdminLists();
+  ['a-dl-name','a-dl-date','a-dl-desc'].forEach(id=>document.getElementById(id).value='');
+  showSaved('dl-saved');
+}
+
+async function deleteEntry(type, id) {
+  if (!isAdmin()) return;
+  if (type==='events') { liveEvents = liveEvents.filter(e=>e.id!==id); await stSetShared('events', liveEvents); renderEvents(); }
+  else if (type==='scholarships') { liveScholarships = liveScholarships.filter(s=>s.id!==id); await stSetShared('scholarships', liveScholarships); renderScholarships(); }
+  updateDashCounts(); renderAdminLists();
+}
+
+async function deleteDeadline(id) {
+  if (!isAdmin()) return;
+  Object.keys(liveDeadlines).forEach(cat => { liveDeadlines[cat] = (liveDeadlines[cat]||[]).filter(d=>d.id!==id); });
+  await stSetShared('deadlines', liveDeadlines);
+  renderDeadlines(); updateDashCounts(); renderAdminLists();
+}
+
+function showSaved(id) { const m = document.getElementById(id); m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
+
+// ─── CALENDAR ────────────────────────────────────────────────
+function makeGoogleUrl(t,s,en,d) { return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t)}&dates=${s}/${en}&details=${encodeURIComponent(d.replace(/[🌅🎭🎉🎓]/g,'').trim())}`; }
+function downloadIcs(t,s,en,d) {
+  const c = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${t}\nDTSTART;VALUE=DATE:${s}\nDTEND;VALUE=DATE:${en}\nDESCRIPTION:${d}\nEND:VEVENT\nEND:VCALENDAR`;
+  const b = new Blob([c],{type:'text/calendar'}); const u = URL.createObjectURL(b);
+  const a = document.createElement('a'); a.href=u; a.download=t.replace(/[^a-z0-9]/gi,'_').toLowerCase()+'.ics'; a.click(); URL.revokeObjectURL(u);
+}
+function calBtn(title, isoStart, isoEnd, desc) {
+  const gUrl = makeGoogleUrl(title,isoStart,isoEnd,desc);
+  const sT = title.replace(/'/g,'').replace(/[🌅🎭🎉🎓]/g,'').trim();
+  const sD = desc.replace(/'/g,'').replace(/[🌅🎭🎉🎓]/g,'').trim();
+  return `<div class="cal-btn" onclick="toggleCalDrop(this,event)" aria-label="Add to calendar"><i class="ti ti-calendar-plus" aria-hidden="true"></i> Add
+    <div class="cal-drop">
+      <a class="cal-opt" href="${gUrl}" target="_blank" rel="noopener"><i class="ti ti-brand-google" aria-hidden="true"></i> Google Calendar</a>
+      <div class="cal-opt" onclick="downloadIcs('${sT}','${isoStart}','${isoEnd}','${sD}')"><i class="ti ti-calendar" aria-hidden="true"></i> Apple Calendar (.ics)</div>
+    </div>
+  </div>`;
+}
+function toggleCalDrop(btn, e) {
+  e.stopPropagation();
+  const drop = btn.querySelector('.cal-drop');
+  if (openCalDrop && openCalDrop !== drop) openCalDrop.classList.remove('open');
+  drop.classList.toggle('open');
+  openCalDrop = drop.classList.contains('open') ? drop : null;
+}
+
+// ─── CHECKLIST ───────────────────────────────────────────────
+async function buildChk() {
+  const el = document.getElementById('chk-list'); if (!el) return;
+  const done = chkItems.filter(i=>i.done).length;
+  el.innerHTML = chkItems.map((item,i) => `
+    <div class="chk-row${item.done?' done':''}" id="cr-${i}">
+      <div class="chk-box${item.done?' on':''}" style="${item.done?`background:${CHK_COLORS[i%CHK_COLORS.length]};border-color:${CHK_COLORS[i%CHK_COLORS.length]};`:''}" onclick="tog(${i})" role="checkbox" aria-checked="${item.done}" aria-label="${item.l}"></div>
+      <div class="chk-lbl"><strong>${item.l}</strong><span>${item.d}</span></div>
+    </div>`).join('');
+  const pct = Math.round(done/chkItems.length*100);
+  const pt = document.getElementById('chk-prog-text'); const pb = document.getElementById('dash-prog-bar'); const dt = document.getElementById('dash-prog-text');
+  if (pt) pt.textContent = `${done} of ${chkItems.length} completed`;
+  if (pb) pb.style.width = pct+'%';
+  if (dt) dt.textContent = `${done} of ${chkItems.length} tasks completed`;
+  const sd = document.getElementById('stat-done'); const sl = document.getElementById('stat-left'); const sp = document.getElementById('stat-pct');
+  if (sd) sd.textContent = done; if (sl) sl.textContent = chkItems.length-done; if (sp) sp.textContent = pct+'%';
+}
+async function tog(i) {
+  chkItems[i].done = !chkItems[i].done; await buildChk();
+  if (currentUser) { const state={}; chkItems.forEach((item,idx)=>state[idx]=item.done); await saveUD(currentUser.uid,'checklist',state); }
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────
+const navMap = ['home','profile','checklist','scholarships','college','events','activities','auditions','essays','testing','mentalhealth','help','admin','privacy'];
+function show(p) {
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('active'));
+  const panel = document.getElementById('panel-'+p); if (panel) panel.classList.add('active');
+  const idx = navMap.indexOf(p);
+  if (idx>=0) { const nis = document.querySelectorAll('.ni'); if (nis[idx]) nis[idx].classList.add('active'); }
+  document.getElementById('user-drop').classList.remove('open');
+  buildChk();
+  if (p==='admin' && isAdmin()) renderAdminLists();
+}
+
+function switchHTab(t, el) {
+  document.querySelectorAll('.htab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.getElementById('htab-'+t).classList.add('active');
+  el.classList.add('active');
+}
+
+function toggleAuthMode() {
+  const si = document.getElementById('auth-form-signin'); const su = document.getElementById('auth-form-signup');
+  if (si.style.display==='none') { si.style.display='block'; su.style.display='none'; }
+  else { si.style.display='none'; su.style.display='block'; }
+}
+
+function toggleDrop() { document.getElementById('user-drop').classList.toggle('open'); }
+
+document.addEventListener('click', e => {
+  const pill = document.getElementById('user-pill');
+  if (pill && !pill.contains(e.target)) document.getElementById('user-drop').classList.remove('open');
+  if (openCalDrop && !openCalDrop.parentElement.contains(e.target)) { openCalDrop.classList.remove('open'); openCalDrop=null; }
+});
+
+// ─── FAQ ─────────────────────────────────────────────────────
+const faqs = [
+  {q:"When is the FAFSA deadline for California students?",a:"The federal FAFSA opens October 1. For California's Cal Grant, the state priority deadline is March 2. File as early as possible — earlier is always better.",cat:"scholarships"},
+  {q:"Do I need a separate application for UC schools vs Common App?",a:"Yes. UC schools use universityofcalifornia.edu — not Common App. CSU schools also have their own system at calstate.edu.",cat:"college"},
+  {q:"How many schools should I apply to?",a:"8–12 total: 2–3 reach, 4–5 match, 2–3 safety. Factor in program strength in your discipline — an arts school with a great Musical Theater program matters more than a brand name.",cat:"college"},
+  {q:"Can I apply test-optional?",a:"All UC campuses are test-free (since 2021). All CSU campuses are test-free (since 2022). CalArts, Berklee, NYU Tisch are test-optional. Always confirm each school's current policy before submitting.",cat:"college"},
+  {q:"How do I ask my conservatory director for a letter of recommendation?",a:"Ask 4–6 weeks before your earliest deadline. Tell them your target schools, goals, and what you'd like them to highlight. Give them a summary of your accomplishments to reference.",cat:"college"},
+  {q:"What arts scholarships are available for OCSA students?",a:"Scholastic Art & Writing Awards, CAEA Duane Hagen & Laurel Burch (March 1), Cal Grant A & B, Jack Kent Cooke Young Artist Award. See the Scholarships tab for details on each.",cat:"scholarships"},
+  {q:"Is the FAFSA the same as the CSS Profile?",a:"No. FAFSA covers federal and state aid (Cal Grant, Pell Grant, federal loans). CSS Profile is required separately by many private colleges for their own institutional grants.",cat:"scholarships"},
+  {q:"Do I need a separate audition beyond Common App?",a:"Often yes. Many arts programs require supplemental materials through their own portals — CalArts, Berklee, NYU Tisch, and most conservatories have their own audition systems. Always check each program's admissions page.",cat:"arts"},
+  {q:"How many pieces in my portfolio?",a:"Typically 10–20, varies by school. Lead with your strongest, show range of skill and medium, and check each school's specific requirements in their portal.",cat:"arts"},
+  {q:"When is OCSA graduation?",a:"Typically mid-June. Confirm exact date at ocsarts.net or contact Student Services — the official date is announced each spring.",cat:"senior"},
+  {q:"What is National Decision Day?",a:"May 1 — the deadline to commit to one college and withdraw your acceptances from all others. After this date, schools may rescind your admission.",cat:"college"},
+];
+function renderFaqs(filter) {
+  const list = document.getElementById('faq-list'); if (!list) return;
+  const f = filter==='all' ? faqs : faqs.filter(x=>x.cat===filter);
+  list.innerHTML = f.map(x => `
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>${x.q}</span><i class="ti ti-chevron-down faq-ch" aria-hidden="true"></i></div>
+      <div class="faq-a">${x.a}</div>
+    </div>`).join('');
+}
+function toggleFaq(el) {
+  const a=el.nextElementSibling; const ch=el.querySelector('.faq-ch'); const isOpen=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.faq-ch').forEach(x=>x.classList.remove('open'));
+  if (!isOpen) { a.classList.add('open'); ch.classList.add('open'); }
+}
+function filterFaq(cat) { renderFaqs(cat); }
+
+// ─── MOOD ────────────────────────────────────────────────────
+const moodMessages = {
+  great: "That's great to hear! Keep riding that energy — senior year has some amazing moments ahead.",
+  okay: "Okay is perfectly fine. Senior year has its ups and downs — you're doing the work, and that matters.",
+  stressed: "Stress during senior year is real and valid. Try to take one thing off your plate today. The coping tips below can help.",
+  struggling: "Thank you for being honest with yourself. Struggling doesn't mean you're failing — it means you need support, and that's okay. Please look at the resources below. 💙",
+};
+const moodColors = {
+  great:{bg:'#fef5d6',border:'var(--ye)'},
+  okay:{bg:'#dce8f8',border:'var(--bl)'},
+  stressed:{bg:'#fde8dc',border:'var(--oo)'},
+  struggling:{bg:'#fde0ef',border:'var(--pi)'},
+};
+function selectMood(el, mood) {
+  document.querySelectorAll('.mood-card').forEach(c => c.style.background='');
+  const c = moodColors[mood]; el.style.background = c.bg;
+  const r = document.getElementById('mood-response');
+  r.style.display='block'; r.style.background=c.bg; r.style.borderLeftColor=c.border; r.textContent=moodMessages[mood];
+}
+
+// ─── HELP FORM ───────────────────────────────────────────────
+function submitQ() {
+  const name = document.getElementById('f-name').value.trim();
+  const q = document.getElementById('f-question').value.trim();
+  if (!name||!q) { alert('Please fill in your name and question.'); return; }
+  // TODO: Connect this to a real backend (Formspree, Google Forms, or Airtable)
+  // For now it shows a success message
+  document.getElementById('submit-form').style.display = 'none';
+  document.getElementById('submit-success').style.display = 'block';
+}
+
+// ─── ESSAY FEEDBACK ──────────────────────────────────────────
+function submitEssay() {
+  const t = document.getElementById('essay-box').value.trim();
+  aiPrompt(t ? 'Please give me detailed feedback on this college essay from an OCSA student:\n\n'+t : 'Tips for writing a standout college essay as an arts student from OCSA');
+}
+
+// ─── AI PROMPT HELPER ────────────────────────────────────────
+// When hosted outside Claude, this opens a new Claude.ai chat.
+// When running inside Claude (as a widget), it uses sendPrompt().
+function aiPrompt(text) {
+  if (typeof sendPrompt === 'function') {
+    sendPrompt(text);
+  } else {
+    window.open('https://claude.ai/new?q=' + encodeURIComponent(text), '_blank');
+  }
+}
+
+// ─── BOOT ────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
