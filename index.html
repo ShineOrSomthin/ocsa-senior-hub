@@ -73,7 +73,17 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
 
 /* ── LAYOUT ── */
 .app-body{display:flex;flex:1;min-height:0;overflow:hidden;}
-.sidebar{width:190px;flex-shrink:0;background:var(--pa2);border-right:2px solid rgba(26,18,9,0.15);display:flex;flex-direction:column;overflow-y:auto;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--ru) 27px,var(--ru) 28.5px);}
+.sidebar{width:190px;flex-shrink:0;background:var(--pa2);border-right:2px solid rgba(26,18,9,0.15);display:flex;flex-direction:column;overflow-y:auto;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--ru) 27px,var(--ru) 28.5px);transition:width 0.22s ease;}
+.sidebar.sb-hidden{width:0;overflow:hidden;border-right:none;}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(26,18,9,0.48);z-index:149;}
+.sb-overlay.active{display:block;}
+.sb-toggle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.22);border-radius:4px;cursor:pointer;color:#fff;font-size:20px;flex-shrink:0;transition:background 0.12s;padding:0;}
+.sb-toggle:hover{background:rgba(255,255,255,0.22);}
+@media(max-width:639px){
+  .sidebar{position:fixed;top:0;left:0;height:100%;z-index:150;width:220px;transition:transform 0.22s ease;transform:translateX(-100%);}
+  .sidebar.sb-hidden{width:220px;overflow:hidden;border-right:2px solid rgba(26,18,9,0.15);}
+  .sidebar.sb-open{transform:translateX(0);}
+}
 .side-top{padding:12px 12px 8px;border-bottom:1.5px dashed rgba(26,18,9,0.18);display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .side-logo-text{font-family:var(--T);font-size:13px;font-weight:700;color:var(--ink);}
 .side-logo-sub{font-family:var(--P);font-size:10px;font-weight:600;color:var(--ink3);}
@@ -389,6 +399,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
   <div class="topbar-stripe"></div>
   <div class="topbar">
     <div class="tb-left">
+      <button class="sb-toggle" onclick="toggleSidebar()" aria-label="Toggle menu"><i class="ti ti-menu-2" aria-hidden="true"></i></button>
       <svg width="38" height="38" viewBox="0 0 503.5 508.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <polygon points="67.5 116.5 .5 261 138 325 204 179.5 67.5 116.5" fill="#ef5c21"/>
         <polygon points="404 .5 279.5 5.5 284.5 134 380 131 409 120 404 .5" fill="#0f5ba8"/>
@@ -421,8 +432,9 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
   </div>
 
   <div class="app-body">
+    <div class="sb-overlay" id="sb-overlay" onclick="toggleSidebar()"></div>
     <!-- SIDEBAR -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="side-top">
         <svg width="32" height="32" viewBox="0 0 503.5 508.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <polygon points="67.5 116.5 .5 261 138 325 204 179.5 67.5 116.5" fill="#ef5c21"/>
@@ -967,6 +979,8 @@ async function loginUser(uid, ud) {
   await setLastUser(uid);
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('main-app').classList.add('visible');
+  sidebarOpen = window.innerWidth >= 640;
+  applySidebarState();
   renderUserUI(); buildChk(); await loadLiveData(); startPolling(); renderFaqs('all');
   const consented = await loadUD(uid, 'consent', null);
   if (!consented) document.getElementById('consent-banner').style.display = 'flex';
@@ -1255,6 +1269,29 @@ async function tog(i) {
 
 // ─── NAVIGATION ──────────────────────────────────────────────
 const navMap = ['home','profile','checklist','scholarships','college','events','activities','auditions','essays','testing','mentalhealth','help','admin','privacy'];
+let sidebarOpen = true;
+
+function applySidebarState() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sb-overlay');
+  if (!sb) return;
+  const isMobile = window.innerWidth < 640;
+  if (isMobile) {
+    sb.classList.toggle('sb-open', sidebarOpen);
+    if (ov) ov.classList.toggle('active', sidebarOpen);
+    sb.classList.remove('sb-hidden');
+  } else {
+    sb.classList.toggle('sb-hidden', !sidebarOpen);
+    sb.classList.remove('sb-open');
+    if (ov) ov.classList.remove('active');
+  }
+}
+
+function toggleSidebar() {
+  sidebarOpen = !sidebarOpen;
+  applySidebarState();
+}
+
 function show(p) {
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(x=>x.classList.remove('active'));
@@ -1264,6 +1301,7 @@ function show(p) {
   document.getElementById('user-drop').classList.remove('open');
   buildChk();
   if (p==='admin' && isAdmin()) renderAdminLists();
+  if (window.innerWidth < 640 && sidebarOpen) { sidebarOpen = false; applySidebarState(); }
 }
 
 function switchHTab(t, el) {
