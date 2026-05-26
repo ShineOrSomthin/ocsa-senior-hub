@@ -628,9 +628,17 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         </div>
         <div class="nb-card">
           <div class="ct">Get Feedback on Your Draft</div>
-          <div class="cb" style="margin-bottom:6px;">Paste your essay below and click the button — feedback will open in a new Claude chat.</div>
-          <textarea class="nb-textarea" id="essay-box" placeholder="Paste your college essay here..."></textarea>
-          <button class="stamp-btn-sm" onclick="submitEssay()"><i class="ti ti-send" aria-hidden="true"></i> Get essay feedback</button>
+          <div class="cb" style="margin-bottom:10px;">Share your Google Doc link and a human reviewer will leave comments directly on your doc.</div>
+          <div style="background:var(--pa2);border-top:3px solid var(--ye);border-radius:0;padding:10px 12px;margin-bottom:14px;">
+            <div style="font-family:var(--T);font-size:11px;font-weight:700;color:var(--ink);letter-spacing:0.4px;margin-bottom:4px;"><i class="ti ti-alert-triangle" aria-hidden="true" style="color:var(--ye);vertical-align:-1px;margin-right:4px;"></i>BEFORE YOU SEND</div>
+            <div style="font-family:var(--P);font-size:12px;font-weight:600;color:var(--ink2);">In Google Docs, click <strong>Share</strong> &rarr; change access to <strong>"Anyone with the link"</strong> &rarr; set role to <strong>Commenter</strong>. Otherwise the reviewer won't be able to open or comment on your doc.</div>
+          </div>
+          <input class="nb-input" type="text" id="essay-name" placeholder="Your name" style="margin-bottom:8px;">
+          <input class="nb-input" type="text" id="essay-conservatory" placeholder="Your conservatory (e.g. Film &amp; Television)" style="margin-bottom:8px;">
+          <input class="nb-input" type="url" id="essay-doclink" placeholder="Google Doc link (https://docs.google.com/...)" style="margin-bottom:8px;">
+          <textarea class="nb-textarea" id="essay-note" placeholder="Optional: anything specific you'd like feedback on?" style="min-height:70px;margin-bottom:4px;"></textarea>
+          <button class="stamp-btn-sm" onclick="submitEssay()"><i class="ti ti-send" aria-hidden="true"></i> Send for review</button>
+          <div id="essay-msg" style="display:none;margin-top:12px;padding:10px 12px;border-radius:0;font-family:var(--P);font-size:13px;font-weight:600;color:var(--ink2);"></div>
         </div>
       </div>
 
@@ -801,6 +809,19 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
             <div class="admin-section"><div class="admin-section-title"><i class="ti ti-building-community" aria-hidden="true" style="color:var(--bl);"></i> Deadlines</div><div id="admin-dl-list"></div></div>
           </div>
         </div>
+        <div class="admin-panel-wrap">
+          <div class="admin-panel-hdr"><i class="ti ti-mail" aria-hidden="true"></i> Essay Reviewer Emails</div>
+          <div class="admin-panel-body">
+            <div class="cb" style="margin-bottom:10px;">Students' essay review requests are emailed to these addresses. Add or remove reviewers here.</div>
+            <div id="admin-reviewer-list"></div>
+            <span class="admin-label" style="display:block;margin-top:12px;">Add reviewer email</span>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
+              <input class="admin-input" id="a-rv-email" type="email" placeholder="reviewer@example.com" style="flex:1;margin:0;">
+              <button class="stamp-btn-sm green" onclick="addReviewer()" style="margin:0;"><i class="ti ti-plus" aria-hidden="true"></i> Add</button>
+            </div>
+            <div class="success-msg" id="rv-saved"><i class="ti ti-circle-check" aria-hidden="true"></i> Reviewer list updated!</div>
+          </div>
+        </div>
       </div>
 
       <!-- PRIVACY POLICY -->
@@ -925,7 +946,7 @@ const AVC = [{bg:'#fde8dc',c:'#8c2e0a'},{bg:'#dce8f8',c:'#0e2d68'},{bg:'#fde0ef'
 
 // ─── STATE ──────────────────────────────────────────────────
 let currentUser = null, openCalDrop = null, pollInterval = null;
-let liveEvents = [], liveScholarships = [], liveDeadlines = {finaid:[],uccs:[],arts:[]};
+let liveEvents = [], liveScholarships = [], liveDeadlines = {finaid:[],uccs:[],arts:[]}, liveReviewers = ['shinekim008@gmail.com'];
 
 // ─── STORAGE HELPERS ────────────────────────────────────────
 // Uses localStorage when running as a hosted file.
@@ -1089,6 +1110,7 @@ async function loadLiveData() {
   liveEvents = await stGetShared('events', DEFAULT_EVENTS);
   liveScholarships = await stGetShared('scholarships', DEFAULT_SCHOLARSHIPS);
   liveDeadlines = await stGetShared('deadlines', DEFAULT_DEADLINES);
+  liveReviewers = await stGetShared('essay_reviewers', ['shinekim008@gmail.com']);
   renderEvents(); renderScholarships(); renderDeadlines(); updateDashCounts();
   if (isAdmin()) renderAdminLists();
 }
@@ -1153,6 +1175,36 @@ function renderAdminLists() {
   if (scEl) scEl.innerHTML = liveScholarships.length ? liveScholarships.map(sc => `<div class="admin-list-item"><div class="nm">${sc.name}</div><div class="mt">${sc.dl}</div><button class="del-btn" onclick="deleteEntry('scholarships','${sc.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No scholarships yet.</div>';
   const allDl = [...(liveDeadlines.finaid||[]),...(liveDeadlines.uccs||[]),...(liveDeadlines.arts||[])];
   if (dlEl) dlEl.innerHTML = allDl.length ? allDl.map(dl => `<div class="admin-list-item"><div class="nm">${dl.name}</div><div class="mt">${dl.date}</div><button class="del-btn" onclick="deleteDeadline('${dl.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No deadlines yet.</div>';
+  renderReviewerList();
+}
+
+function renderReviewerList() {
+  const el = document.getElementById('admin-reviewer-list');
+  if (!el) return;
+  el.innerHTML = liveReviewers.length
+    ? liveReviewers.map(email => `<div class="admin-list-item"><div class="nm">${email}</div><button class="del-btn" onclick="deleteReviewer('${email.replace(/'/g,"\\'")}')" title="Remove" ${liveReviewers.length===1?'disabled title="Must keep at least one reviewer"':''}><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('')
+    : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No reviewers set.</div>';
+}
+
+async function addReviewer() {
+  if (!isAdmin()) return;
+  const email = document.getElementById('a-rv-email').value.trim().toLowerCase();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (liveReviewers.includes(email)) { alert('That email is already in the list.'); return; }
+  liveReviewers = [...liveReviewers, email];
+  await stSetShared('essay_reviewers', liveReviewers);
+  document.getElementById('a-rv-email').value = '';
+  renderReviewerList();
+  showSaved('rv-saved');
+}
+
+async function deleteReviewer(email) {
+  if (!isAdmin()) return;
+  if (liveReviewers.length <= 1) { alert('You must keep at least one reviewer email.'); return; }
+  liveReviewers = liveReviewers.filter(e => e !== email);
+  await stSetShared('essay_reviewers', liveReviewers);
+  renderReviewerList();
+  showSaved('rv-saved');
 }
 
 // ─── ADMIN ACTIONS ───────────────────────────────────────────
@@ -1389,8 +1441,33 @@ function submitQ() {
 
 // ─── ESSAY FEEDBACK ──────────────────────────────────────────
 function submitEssay() {
-  const t = document.getElementById('essay-box').value.trim();
-  aiPrompt(t ? 'Please give me detailed feedback on this college essay from an OCSA student:\n\n'+t : 'Tips for writing a standout college essay as an arts student from OCSA');
+  const name = document.getElementById('essay-name').value.trim();
+  const conservatory = document.getElementById('essay-conservatory').value.trim();
+  const link = document.getElementById('essay-doclink').value.trim();
+  const note = document.getElementById('essay-note').value.trim();
+  const msg = document.getElementById('essay-msg');
+
+  function showMsg(text, color) {
+    msg.textContent = text;
+    msg.style.borderTop = '3px solid ' + color;
+    msg.style.background = 'var(--pa2)';
+    msg.style.display = 'block';
+  }
+
+  if (!link) { showMsg('Please paste your Google Doc link before sending.', 'var(--re)'); return; }
+  if (!link.includes('docs.google.com')) { showMsg("That doesn't look like a Google Doc link. Copy the full link from Google Docs (it should start with https://docs.google.com/).", 'var(--re)'); return; }
+
+  const subject = 'Essay Review Request – ' + (name || 'OCSA Student') + (conservatory ? ' (' + conservatory + ')' : '');
+  const body = 'Hi,\n\nAn OCSA senior is requesting essay feedback.\n\n'
+    + 'Name: ' + (name || '(not provided)') + '\n'
+    + 'Conservatory: ' + (conservatory || '(not provided)') + '\n\n'
+    + 'Google Doc link:\n' + link + '\n\n'
+    + (note ? 'Notes from student:\n' + note + '\n\n' : '')
+    + 'Please leave comments directly on the Google Doc.\n\nSent via OCSA Senior Hub';
+
+  const to = liveReviewers.join(',');
+  window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  showMsg('Your mail app should open with the request pre-filled — hit Send from there!', '#1a7a5a');
 }
 
 // ─── AI PROMPT HELPER ────────────────────────────────────────
