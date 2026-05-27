@@ -1,6 +1,6 @@
 OCSA Senior Hub — Project Context
 What This Is
-A senior year companion web app for Orange County School of the Arts (OCSA), 1010 N. Main St, Santa Ana, CA 92701. Built for the Class of 2026. The entire app is a single HTML file (`index.html`) with no build system, no framework, no dependencies beyond two CDN links.
+A senior year companion web app for Orange County School of the Arts (OCSA), 1010 N. Main St, Santa Ana, CA 92701. Built for the Class of 2027. The entire app is a single HTML file (`index.html`) with no build system, no framework, no dependencies beyond two CDN links.
 Live Site
 Hosted on GitHub Pages. The file in this repo (`index.html`) IS the app. Edit it, commit, and the live site updates within ~60 seconds.
 Tech Stack
