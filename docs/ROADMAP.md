@@ -39,10 +39,9 @@ File: `index.html` → `panel-privacy`
 Status: Drafted to cover COPPA, FERPA (California), and CCPA. Covers all the right areas but needs an attorney to sign off before real students use it.
 Contact: OCSA's district attorney or an education law firm familiar with California student privacy law.
 ---
-6. Upgrade Password Storage
-Current: `btoa()` encoding (base64) — not real encryption.
-Better: Use the Web Crypto API to hash passwords with bcrypt or PBKDF2 before storing. Or skip entirely by switching to Google OAuth (which removes passwords from the equation).
-Priority: Low until real students are using it with real passwords.
+6. Upgrade Password Storage — done
+Implementation: Passwords are hashed with PBKDF2-SHA256 (100k iterations) and a per-user random salt via the Web Crypto API. See `hashPassword()` in `index.html`.
+Still recommended long-term: switch to Google OAuth so passwords never live in the browser at all.
 ---
 Medium Priority (Nice to Have)
 Custom Domain

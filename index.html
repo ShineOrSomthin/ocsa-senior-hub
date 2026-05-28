@@ -1020,6 +1020,37 @@ async function clearLastUser() { await stDel('ocsa_last_user'); }
 function getAC(email) { let h=0; for(let i=0;i<email.length;i++) h=(h*31+email.charCodeAt(i))%AVC.length; return AVC[Math.abs(h)]; }
 function getInits(name) { const p=name.trim().split(' ').filter(Boolean); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():name.slice(0,2).toUpperCase(); }
 
+// ─── SAFETY HELPERS ──────────────────────────────────────────
+// esc() makes a string safe to drop into HTML (attribute or text body).
+// jsEsc() makes a string safe to drop inside a single-quoted JS string
+// that itself sits inside an HTML attribute (e.g. onclick handlers).
+// Always use these when interpolating admin- or user-supplied data.
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function jsEsc(s) {
+  return String(s == null ? '' : s).replace(/[\\'"<>&\r\n  ]/g, c =>
+    '\\u' + c.charCodeAt(0).toString(16).padStart(4,'0'));
+}
+
+// hashPassword() runs PBKDF2-SHA256 with 100k iterations. Returns
+// { hash, salt } as hex strings. Pass an existing salt to verify; omit
+// it on signup to generate a new random salt.
+async function hashPassword(password, saltHex) {
+  const salt = saltHex
+    ? new Uint8Array(saltHex.match(/.{2}/g).map(h => parseInt(h, 16)))
+    : crypto.getRandomValues(new Uint8Array(16));
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(password),
+    'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+    keyMaterial, 256);
+  const toHex = bytes => Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join('');
+  return { hash: toHex(new Uint8Array(bits)), salt: toHex(salt) };
+}
+
 // ─── AUTH ────────────────────────────────────────────────────
 async function init() {
   const last = await getLastUser();
@@ -1056,7 +1087,7 @@ function renderUserUI() {
   document.getElementById('drop-detail').textContent = (isAdmin() ? '⚙️ Admin · ' : '') + (currentUser.conservatory || 'OCSA · Class of 2027');
   document.getElementById('drop-admin-link').style.display = isAdmin() ? 'flex' : 'none';
   document.getElementById('admin-nav-section').style.display = isAdmin() ? 'block' : 'none';
-  document.getElementById('home-greeting').innerHTML = `<i class="ti ti-home" aria-hidden="true" style="color:var(--oo);"></i> Welcome back, ${currentUser.name.split(' ')[0]}!`;
+  document.getElementById('home-greeting').innerHTML = `<i class="ti ti-home" aria-hidden="true" style="color:var(--oo);"></i> Welcome back, ${esc(currentUser.name.split(' ')[0])}!`;
   const lgAv = document.getElementById('profile-avatar-lg');
   lgAv.style.background = ac.bg; lgAv.style.color = ac.c; lgAv.textContent = inits;
   document.getElementById('profile-name-display').textContent = currentUser.name;
@@ -1083,9 +1114,12 @@ async function emailSignIn() {
   const pass = document.getElementById('si-pass').value;
   if (!email||!pass) { alert('Please enter your email and password.'); return; }
   const users = await getUsers();
-  const uid = Object.keys(users).find(k => users[k].email === email && users[k].pass === btoa(pass));
-  if (!uid) { alert('No account found. Please check your email and password.'); return; }
-  await loginUser(uid, users[uid]);
+  const uid = Object.keys(users).find(k => users[k].email === email);
+  const user = uid ? users[uid] : null;
+  if (!user || !user.salt || !user.pass) { alert('No account found. Please check your email and password.'); return; }
+  const { hash } = await hashPassword(pass, user.salt);
+  if (hash !== user.pass) { alert('No account found. Please check your email and password.'); return; }
+  await loginUser(uid, user);
 }
 
 async function emailSignUp() {
@@ -1101,7 +1135,9 @@ async function emailSignUp() {
 
 async function proceedWithSignup(uid, name, email, conservatory, pass) {
   const users = await getUsers();
-  const ud = { name, email, conservatory, pass: pass ? btoa(pass) : '', goal: '' };
+  let passHash = '', salt = '';
+  if (pass) { ({ hash: passHash, salt } = await hashPassword(pass)); }
+  const ud = { name, email, conservatory, pass: passHash, salt, goal: '' };
   users[uid] = ud; await saveUsers(users); await loginUser(uid, ud);
 }
 
@@ -1167,9 +1203,9 @@ function renderEvents() {
   if (!liveEvents.length) { el.innerHTML = '<div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">No events added yet. Check back soon!</div>'; return; }
   el.innerHTML = liveEvents.map(ev => `
     <div class="ev-row">
-      <div class="ev-box" style="border-color:${ev.color};"><div class="ev-mo" style="color:${ev.color};">${ev.mo}</div><div class="ev-dy">${ev.dy}</div></div>
-      <div class="ev-info"><strong>${ev.name}</strong><span>${ev.desc}</span></div>
-      ${calBtn(ev.name.replace(/[🌅🎭🎉🎓]/g,'').trim(), ev.isoStart, ev.isoEnd, ev.desc)}
+      <div class="ev-box" style="border-color:${esc(ev.color)};"><div class="ev-mo" style="color:${esc(ev.color)};">${esc(ev.mo)}</div><div class="ev-dy">${esc(ev.dy)}</div></div>
+      <div class="ev-info"><strong>${esc(ev.name)}</strong><span>${esc(ev.desc)}</span></div>
+      ${calBtn(String(ev.name).replace(/[🌅🎭🎉🎓]/g,'').trim(), ev.isoStart, ev.isoEnd, ev.desc)}
     </div>`).join('');
 }
 
@@ -1177,12 +1213,12 @@ function renderScholarships() {
   const el = document.getElementById('scholarships-list'); if (!el) return;
   if (!liveScholarships.length) { el.innerHTML = '<div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">No scholarships added yet.</div>'; return; }
   el.innerHTML = liveScholarships.map(sc => `
-    <div style="border-left:4px solid ${sc.bdr};border-radius:0 3px 3px 0;padding:11px 13px;background:rgba(255,255,255,0.7);border:1.5px solid rgba(26,18,9,0.12);border-left:4px solid ${sc.bdr};margin-bottom:9px;">
-      <div class="ct">${sc.name} <span class="bdg ${sc.bc}">${sc.badge}</span></div>
-      <div class="cb">${sc.desc}</div>
+    <div style="border-left:4px solid ${esc(sc.bdr)};border-radius:0 3px 3px 0;padding:11px 13px;background:rgba(255,255,255,0.7);border:1.5px solid rgba(26,18,9,0.12);border-left:4px solid ${esc(sc.bdr)};margin-bottom:9px;">
+      <div class="ct">${esc(sc.name)} <span class="bdg ${esc(sc.bc)}">${esc(sc.badge)}</span></div>
+      <div class="cb">${esc(sc.desc)}</div>
       <div style="display:flex;justify-content:space-between;margin-top:9px;font-family:var(--P);font-size:12.5px;font-weight:700;color:var(--ink3);">
-        <span><i class="ti ti-clock" aria-hidden="true"></i> ${sc.dl}</span>
-        <span style="color:var(--oo);cursor:pointer;" onclick="openSearch('Tell me more about the ${sc.name.replace(/'/g,'')} scholarship for OCSA students')">Learn more &rarr;</span>
+        <span><i class="ti ti-clock" aria-hidden="true"></i> ${esc(sc.dl)}</span>
+        <span style="color:var(--oo);cursor:pointer;" onclick="openSearch('Tell me more about the ${jsEsc(sc.name)} scholarship for OCSA students')">Learn more &rarr;</span>
       </div>
     </div>`).join('');
 }
@@ -1195,8 +1231,8 @@ function renderDeadlines() {
     if (!items.length) return '';
     return `<div class="nb-card" style="margin-bottom:11px;"><div class="ct">${cats[key]}</div>
       ${items.map(dl => `<div class="dl-row">
-        <div style="flex:1;min-width:0;"><div class="dl-name">${dl.name}</div><div class="dl-desc">${dl.desc}</div></div>
-        <div class="dl-right"><span class="dl-date">${dl.date}</span>${dl.badge?`<span class="bdg ${dl.badge}">${dl.badgeText}</span>`:''}${calBtn(dl.name, dl.isoStart||'20261001', dl.isoEnd||'20261001', dl.desc)}</div>
+        <div style="flex:1;min-width:0;"><div class="dl-name">${esc(dl.name)}</div><div class="dl-desc">${esc(dl.desc)}</div></div>
+        <div class="dl-right"><span class="dl-date">${esc(dl.date)}</span>${dl.badge?`<span class="bdg ${esc(dl.badge)}">${esc(dl.badgeText)}</span>`:''}${calBtn(dl.name, dl.isoStart||'20261001', dl.isoEnd||'20261001', dl.desc)}</div>
       </div>`).join('')}</div>`;
   }).join('');
 }
@@ -1205,10 +1241,10 @@ function renderAdminLists() {
   const evEl = document.getElementById('admin-ev-list');
   const scEl = document.getElementById('admin-sc-list');
   const dlEl = document.getElementById('admin-dl-list');
-  if (evEl) evEl.innerHTML = liveEvents.length ? liveEvents.map(ev => `<div class="admin-list-item"><div class="nm">${ev.name}</div><div class="mt">${ev.date||ev.mo+' '+ev.dy}</div><button class="del-btn" onclick="deleteEntry('events','${ev.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No events yet.</div>';
-  if (scEl) scEl.innerHTML = liveScholarships.length ? liveScholarships.map(sc => `<div class="admin-list-item"><div class="nm">${sc.name}</div><div class="mt">${sc.dl}</div><button class="del-btn" onclick="deleteEntry('scholarships','${sc.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No scholarships yet.</div>';
+  if (evEl) evEl.innerHTML = liveEvents.length ? liveEvents.map(ev => `<div class="admin-list-item"><div class="nm">${esc(ev.name)}</div><div class="mt">${esc(ev.date||ev.mo+' '+ev.dy)}</div><button class="del-btn" onclick="deleteEntry('events','${jsEsc(ev.id)}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No events yet.</div>';
+  if (scEl) scEl.innerHTML = liveScholarships.length ? liveScholarships.map(sc => `<div class="admin-list-item"><div class="nm">${esc(sc.name)}</div><div class="mt">${esc(sc.dl)}</div><button class="del-btn" onclick="deleteEntry('scholarships','${jsEsc(sc.id)}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No scholarships yet.</div>';
   const allDl = [...(liveDeadlines.finaid||[]),...(liveDeadlines.uccs||[]),...(liveDeadlines.arts||[])];
-  if (dlEl) dlEl.innerHTML = allDl.length ? allDl.map(dl => `<div class="admin-list-item"><div class="nm">${dl.name}</div><div class="mt">${dl.date}</div><button class="del-btn" onclick="deleteDeadline('${dl.id}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No deadlines yet.</div>';
+  if (dlEl) dlEl.innerHTML = allDl.length ? allDl.map(dl => `<div class="admin-list-item"><div class="nm">${esc(dl.name)}</div><div class="mt">${esc(dl.date)}</div><button class="del-btn" onclick="deleteDeadline('${jsEsc(dl.id)}')" title="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('') : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No deadlines yet.</div>';
   renderReviewerList();
 }
 
@@ -1216,7 +1252,7 @@ function renderReviewerList() {
   const el = document.getElementById('admin-reviewer-list');
   if (!el) return;
   el.innerHTML = liveReviewers.length
-    ? liveReviewers.map(email => `<div class="admin-list-item"><div class="nm">${email}</div><button class="del-btn" onclick="deleteReviewer('${email.replace(/'/g,"\\'")}')" title="Remove" ${liveReviewers.length===1?'disabled title="Must keep at least one reviewer"':''}><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('')
+    ? liveReviewers.map(email => `<div class="admin-list-item"><div class="nm">${esc(email)}</div><button class="del-btn" onclick="deleteReviewer('${jsEsc(email)}')" title="Remove" ${liveReviewers.length===1?'disabled title="Must keep at least one reviewer"':''}><i class="ti ti-trash" aria-hidden="true"></i></button></div>`).join('')
     : '<div style="font-family:var(--P);font-size:12px;color:var(--ink3);">No reviewers set.</div>';
 }
 
@@ -1314,12 +1350,12 @@ function downloadIcs(t,s,en,d) {
 }
 function calBtn(title, isoStart, isoEnd, desc) {
   const gUrl = makeGoogleUrl(title,isoStart,isoEnd,desc);
-  const sT = title.replace(/'/g,'').replace(/[🌅🎭🎉🎓]/g,'').trim();
-  const sD = desc.replace(/'/g,'').replace(/[🌅🎭🎉🎓]/g,'').trim();
+  const sT = String(title).replace(/[🌅🎭🎉🎓]/g,'').trim();
+  const sD = String(desc).replace(/[🌅🎭🎉🎓]/g,'').trim();
   return `<div class="cal-btn" onclick="toggleCalDrop(this,event)" aria-label="Add to calendar"><i class="ti ti-calendar-plus" aria-hidden="true"></i> Add
     <div class="cal-drop">
-      <a class="cal-opt" href="${gUrl}" target="_blank" rel="noopener"><i class="ti ti-brand-google" aria-hidden="true"></i> Google Calendar</a>
-      <div class="cal-opt" onclick="downloadIcs('${sT}','${isoStart}','${isoEnd}','${sD}')"><i class="ti ti-calendar" aria-hidden="true"></i> Apple Calendar (.ics)</div>
+      <a class="cal-opt" href="${esc(gUrl)}" target="_blank" rel="noopener"><i class="ti ti-brand-google" aria-hidden="true"></i> Google Calendar</a>
+      <div class="cal-opt" onclick="downloadIcs('${jsEsc(sT)}','${jsEsc(isoStart)}','${jsEsc(isoEnd)}','${jsEsc(sD)}')"><i class="ti ti-calendar" aria-hidden="true"></i> Apple Calendar (.ics)</div>
     </div>
   </div>`;
 }

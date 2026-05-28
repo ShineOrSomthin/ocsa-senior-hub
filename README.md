@@ -69,7 +69,7 @@ activities, auditions, essays, testing, mentalhealth, help, admin, privacy
 Auth System
 Sign-in screen shown when no saved session
 Email/password accounts stored in `localStorage` (`ocsa_users` key)
-Passwords stored as `btoa()` encoded (not truly secure — note for future improvement)
+Passwords hashed with PBKDF2-SHA256 (100k iterations) plus a per-user random salt via the Web Crypto API. See `hashPassword()` in the JS section.
 Auto-login via `ocsa_last_user` key
 Google sign-in is a placeholder — not real OAuth yet
 Admin System
@@ -138,7 +138,7 @@ What's Intentionally Placeholder / TODO
 [ ] Staff email addresses — contact cards throughout use placeholder `@ocsarts.net` addresses. Update with real staff contacts before student launch.
 [ ] Event dates — default event dates (graduation, prom, etc.) are approximate. Admins should update via Admin Panel once official dates are confirmed.
 [ ] Privacy policy legal review — drafted to cover COPPA, FERPA, CCPA. Needs OCSA attorney review before student-facing launch.
-[ ] Password security — currently `btoa()` encoded, not truly hashed. Fine for prototype, needs upgrade for production.
+[x] Password security — hashed via PBKDF2-SHA256 with per-user salt. Acceptable for prototype; OAuth migration is still the cleanest long-term fix because it removes passwords from the browser entirely.
 ---
 Future Plans
 App Store / Google Play — plan is to wrap with Capacitor (WebView wrapper). GitHub Pages stays as the source of truth. Apple Developer account ($99/yr) + Google Play ($25 one-time) needed when ready.
