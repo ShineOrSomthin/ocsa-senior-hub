@@ -558,7 +558,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         <div class="ph"><i class="ti ti-award" aria-hidden="true" style="color:var(--ye);"></i> Arts Scholarships <span class="live-dot" style="margin-left:4px;"></span></div>
         <div class="ps">Curated for OCSA students &mdash; updated live by OCSA staff</div>
         <div class="nb-card" id="scholarships-list"><div style="font-family:var(--P);font-size:13px;color:var(--ink3);padding:10px 0;">Loading scholarships...</div></div>
-        <div style="text-align:center;margin-top:6px;"><button class="stamp-btn-sm" onclick="aiPrompt('Find arts scholarships for an OCSA senior in Santa Ana, California specific to my conservatory')"><i class="ti ti-search" aria-hidden="true"></i> Find more scholarships &rarr;</button></div>
+        <div style="text-align:center;margin-top:6px;"><button class="stamp-btn-sm" onclick="openSearch('Find arts scholarships for an OCSA senior in Santa Ana, California specific to my conservatory')"><i class="ti ti-search" aria-hidden="true"></i> Find more scholarships &rarr;</button></div>
       </div>
 
       <!-- COLLEGE DEADLINES -->
@@ -581,12 +581,12 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         <div class="ph"><i class="ti ti-confetti" aria-hidden="true" style="color:var(--oo);"></i> Fun Senior Activities</div>
         <div class="ps">OCSA-specific ideas + classic senior memories near Santa Ana</div>
         <div class="act-grid" style="margin-bottom:12px;">
-          <div class="act-card" onclick="aiPrompt('Ideas for a senior class art project or collab mural at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-brush" aria-hidden="true"></i></div><div class="lb">Senior Art Project</div><div class="dc">Collab mural or installation</div></div>
-          <div class="act-card" onclick="aiPrompt('Ideas for a senior film screening night at OCSA')"><div class="ic" style="color:var(--re);"><i class="ti ti-movie" aria-hidden="true"></i></div><div class="lb">Senior Film Night</div><div class="dc">Screen your best work</div></div>
-          <div class="act-card" onclick="aiPrompt('Plan a senior road trip from Santa Ana, California')"><div class="ic" style="color:var(--bl);"><i class="ti ti-car" aria-hidden="true"></i></div><div class="lb">Senior Road Trip</div><div class="dc">Best spots from Santa Ana</div></div>
-          <div class="act-card" onclick="aiPrompt('Senior year bucket list for OCSA students')"><div class="ic" style="color:var(--ye);"><i class="ti ti-list-check" aria-hidden="true"></i></div><div class="lb">OCSA Bucket List</div><div class="dc">Before you graduate</div></div>
-          <div class="act-card" onclick="aiPrompt('Fun things to do near downtown Santa Ana for high school seniors')"><div class="ic" style="color:var(--pi);"><i class="ti ti-map-pin" aria-hidden="true"></i></div><div class="lb">Explore Santa Ana</div><div class="dc">Art District, food, murals</div></div>
-          <div class="act-card" onclick="aiPrompt('How to put together a senior class time capsule at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-package" aria-hidden="true"></i></div><div class="lb">Class Time Capsule</div><div class="dc">Preserve this era</div></div>
+          <div class="act-card" onclick="openSearch('Ideas for a senior class art project or collab mural at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-brush" aria-hidden="true"></i></div><div class="lb">Senior Art Project</div><div class="dc">Collab mural or installation</div></div>
+          <div class="act-card" onclick="openSearch('Ideas for a senior film screening night at OCSA')"><div class="ic" style="color:var(--re);"><i class="ti ti-movie" aria-hidden="true"></i></div><div class="lb">Senior Film Night</div><div class="dc">Screen your best work</div></div>
+          <div class="act-card" onclick="openSearch('Plan a senior road trip from Santa Ana, California')"><div class="ic" style="color:var(--bl);"><i class="ti ti-car" aria-hidden="true"></i></div><div class="lb">Senior Road Trip</div><div class="dc">Best spots from Santa Ana</div></div>
+          <div class="act-card" onclick="openSearch('Senior year bucket list for OCSA students')"><div class="ic" style="color:var(--ye);"><i class="ti ti-list-check" aria-hidden="true"></i></div><div class="lb">OCSA Bucket List</div><div class="dc">Before you graduate</div></div>
+          <div class="act-card" onclick="openSearch('Fun things to do near downtown Santa Ana for high school seniors')"><div class="ic" style="color:var(--pi);"><i class="ti ti-map-pin" aria-hidden="true"></i></div><div class="lb">Explore Santa Ana</div><div class="dc">Art District, food, murals</div></div>
+          <div class="act-card" onclick="openSearch('How to put together a senior class time capsule at OCSA')"><div class="ic" style="color:var(--oo);"><i class="ti ti-package" aria-hidden="true"></i></div><div class="lb">Class Time Capsule</div><div class="dc">Preserve this era</div></div>
         </div>
         <div class="nb-card"><div class="ct"><i class="ti ti-map" aria-hidden="true" style="color:var(--bl);"></i> Near OCSA This Summer</div><div class="cb">Laguna Beach, Joshua Tree, Big Bear, Palm Springs, Balboa Park, and the Santa Ana Arts District are all close. The PCH up to Santa Barbara is one of the best California drives.</div></div>
       </div>
@@ -597,14 +597,14 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         <div class="ps">OCSA-trained artists applying to arts colleges &mdash; stand out</div>
         <div class="nb-card"><div class="ct">Get Tips by Conservatory</div>
           <div class="cons-grid">
-            <div class="con-tag" onclick="aiPrompt('Audition tips for college Musical Theater programs as an OCSA student')"><i class="ti ti-masks-theater" aria-hidden="true"></i> Musical Theater</div>
-            <div class="con-tag" onclick="aiPrompt('Audition tips for college Acting programs as an OCSA student')"><i class="ti ti-user" aria-hidden="true"></i> Acting</div>
-            <div class="con-tag" onclick="aiPrompt('Portfolio tips for college Dance programs as an OCSA student')"><i class="ti ti-star" aria-hidden="true"></i> Dance</div>
-            <div class="con-tag" onclick="aiPrompt('Portfolio tips for Visual Arts college programs as an OCSA student')"><i class="ti ti-palette" aria-hidden="true"></i> Visual Arts</div>
-            <div class="con-tag" onclick="aiPrompt('Audition tips for college music programs as an OCSA student')"><i class="ti ti-music" aria-hidden="true"></i> Instrumental / Voice</div>
-            <div class="con-tag" onclick="aiPrompt('Portfolio tips for film school as an OCSA Film and Television student')"><i class="ti ti-movie" aria-hidden="true"></i> Film &amp; Television</div>
-            <div class="con-tag" onclick="aiPrompt('Portfolio tips for digital media college programs as an OCSA student')"><i class="ti ti-device-laptop" aria-hidden="true"></i> Digital Media</div>
-            <div class="con-tag" onclick="aiPrompt('Application tips for Creative Writing college programs as an OCSA student')"><i class="ti ti-pencil" aria-hidden="true"></i> Creative Writing</div>
+            <div class="con-tag" onclick="openSearch('Audition tips for college Musical Theater programs as an OCSA student')"><i class="ti ti-masks-theater" aria-hidden="true"></i> Musical Theater</div>
+            <div class="con-tag" onclick="openSearch('Audition tips for college Acting programs as an OCSA student')"><i class="ti ti-user" aria-hidden="true"></i> Acting</div>
+            <div class="con-tag" onclick="openSearch('Portfolio tips for college Dance programs as an OCSA student')"><i class="ti ti-star" aria-hidden="true"></i> Dance</div>
+            <div class="con-tag" onclick="openSearch('Portfolio tips for Visual Arts college programs as an OCSA student')"><i class="ti ti-palette" aria-hidden="true"></i> Visual Arts</div>
+            <div class="con-tag" onclick="openSearch('Audition tips for college music programs as an OCSA student')"><i class="ti ti-music" aria-hidden="true"></i> Instrumental / Voice</div>
+            <div class="con-tag" onclick="openSearch('Portfolio tips for film school as an OCSA Film and Television student')"><i class="ti ti-movie" aria-hidden="true"></i> Film &amp; Television</div>
+            <div class="con-tag" onclick="openSearch('Portfolio tips for digital media college programs as an OCSA student')"><i class="ti ti-device-laptop" aria-hidden="true"></i> Digital Media</div>
+            <div class="con-tag" onclick="openSearch('Application tips for Creative Writing college programs as an OCSA student')"><i class="ti ti-pencil" aria-hidden="true"></i> Creative Writing</div>
           </div>
         </div>
         <div class="nb-card"><div class="ct">Universal Tips</div>
@@ -950,27 +950,27 @@ let liveEvents = [], liveScholarships = [], liveDeadlines = {finaid:[],uccs:[],a
 
 // ─── STORAGE HELPERS ────────────────────────────────────────
 // Uses localStorage when running as a hosted file.
-// Falls back to window.storage when running inside Claude.
-function hasClaudeStorage() { return typeof window.storage !== 'undefined'; }
+// Falls back to window.storage when running inside a preview renderer.
+function hasHostStorage() { return typeof window.storage !== 'undefined'; }
 
 async function stGet(key) {
-  if (hasClaudeStorage()) { try { const r = await window.storage.get(key); return r ? r.value : null; } catch(e) { return null; } }
+  if (hasHostStorage()) { try { const r = await window.storage.get(key); return r ? r.value : null; } catch(e) { return null; } }
   return localStorage.getItem(key);
 }
 async function stSet(key, val) {
-  if (hasClaudeStorage()) { try { await window.storage.set(key, val); } catch(e) {} }
+  if (hasHostStorage()) { try { await window.storage.set(key, val); } catch(e) {} }
   else { localStorage.setItem(key, val); }
 }
 async function stDel(key) {
-  if (hasClaudeStorage()) { try { await window.storage.delete(key); } catch(e) {} }
+  if (hasHostStorage()) { try { await window.storage.delete(key); } catch(e) {} }
   else { localStorage.removeItem(key); }
 }
 async function stGetShared(key, fallback) {
-  if (hasClaudeStorage()) { try { const r = await window.storage.get('ocsa_shared_'+key, true); return r ? JSON.parse(r.value) : fallback; } catch(e) { return fallback; } }
+  if (hasHostStorage()) { try { const r = await window.storage.get('ocsa_shared_'+key, true); return r ? JSON.parse(r.value) : fallback; } catch(e) { return fallback; } }
   const v = localStorage.getItem('ocsa_shared_'+key); return v ? JSON.parse(v) : fallback;
 }
 async function stSetShared(key, val) {
-  if (hasClaudeStorage()) { try { await window.storage.set('ocsa_shared_'+key, JSON.stringify(val), true); } catch(e) {} }
+  if (hasHostStorage()) { try { await window.storage.set('ocsa_shared_'+key, JSON.stringify(val), true); } catch(e) {} }
   else { localStorage.setItem('ocsa_shared_'+key, JSON.stringify(val)); }
 }
 
@@ -1148,7 +1148,7 @@ function renderScholarships() {
       <div class="cb">${sc.desc}</div>
       <div style="display:flex;justify-content:space-between;margin-top:9px;font-family:var(--P);font-size:12.5px;font-weight:700;color:var(--ink3);">
         <span><i class="ti ti-clock" aria-hidden="true"></i> ${sc.dl}</span>
-        <span style="color:var(--oo);cursor:pointer;" onclick="aiPrompt('Tell me more about the ${sc.name.replace(/'/g,'')} scholarship for OCSA students')">Learn more &rarr;</span>
+        <span style="color:var(--oo);cursor:pointer;" onclick="openSearch('Tell me more about the ${sc.name.replace(/'/g,'')} scholarship for OCSA students')">Learn more &rarr;</span>
       </div>
     </div>`).join('');
 }
@@ -1470,15 +1470,10 @@ function submitEssay() {
   showMsg('Your mail app should open with the request pre-filled — hit Send from there!', '#1a7a5a');
 }
 
-// ─── AI PROMPT HELPER ────────────────────────────────────────
-// When hosted outside Claude, this opens a new Claude.ai chat.
-// When running inside Claude (as a widget), it uses sendPrompt().
-function aiPrompt(text) {
-  if (typeof sendPrompt === 'function') {
-    sendPrompt(text);
-  } else {
-    window.open('https://claude.ai/new?q=' + encodeURIComponent(text), '_blank');
-  }
+// ─── SEARCH HELPER ──────────────────────────────────────────
+// Opens a Google search for the given query in a new tab.
+function openSearch(text) {
+  window.open('https://www.google.com/search?q=' + encodeURIComponent(text), '_blank');
 }
 
 // ─── BOOT ────────────────────────────────────────────────────

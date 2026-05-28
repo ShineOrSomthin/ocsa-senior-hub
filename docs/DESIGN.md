@@ -15,7 +15,7 @@ Patrick Hand	`--P`	All body text, descriptions, nav item labels, form inputs, pl
 Never mix these up. DM Sans = structure and hierarchy. Patrick Hand = the handwriting voice.
 ---
 Color System
-Five OCSA brand colors used as accents. Never used for large fills (that's the AI cliché we avoided).
+Five OCSA brand colors used as accents. Never used for large fills.
 ```
 --oo: #ef5c21  orange
 --bl: #0f5ba8  blue
@@ -32,7 +32,7 @@ Wellbeing → pink
 The topbar stripe at the top of the app cycles through all five colors left to right.
 ---
 Highlight / Callout Boxes — Option D
-This is the most important design rule. We explicitly decided against the "AI cliché" of light colored fill + matching colored border. That pattern looks generated and cheap.
+This is the most important design rule. We explicitly decided against the overused pattern of light colored fill + matching colored border — it looks generic and cheap.
 Option D rule:
 ```css
 background: var(--pa2);        /* paper texture, no color */
@@ -140,10 +140,10 @@ function getInits(name) { /* first + last initial */ }
 ```
 ---
 What NOT To Do
-❌ Light fill + matching border on highlight boxes (the AI cliché)
-❌ Use `localStorage` directly — always use `stGet`/`stSet` helpers
-❌ Call `sendPrompt()` directly — use `aiPrompt()` wrapper
-❌ Use DM Sans for body text or Patrick Hand for titles
-❌ Add `border-radius` to Option D boxes (they're square by design)
-❌ Hardcode colors instead of CSS variables
-❌ Bright saturated fills for large areas — colors are accents only
+- Light fill + matching border on highlight boxes (the overused pattern we replaced)
+- Use `localStorage` directly — always use `stGet`/`stSet` helpers
+- Hardcode the Google search URL on individual buttons — go through `openSearch()`
+- Use DM Sans for body text or Patrick Hand for titles
+- Add `border-radius` to Option D boxes (they're square by design)
+- Hardcode colors instead of CSS variables
+- Bright saturated fills for large areas — colors are accents only

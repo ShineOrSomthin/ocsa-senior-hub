@@ -1,5 +1,5 @@
 OCSA Senior Hub — Editable Content Reference
-This file documents all the content that lives in `index.html` and may need updating. When asking Claude Code to change content, reference this file.
+This file documents all the content that lives in `index.html` and may need updating. Reference this file when you need to change content.
 ---
 School Info
 School name: Orange County School of the Arts (OCSA)
@@ -47,30 +47,30 @@ Visual Arts
 Checklist Items
 Defined as `chkItems` array in JS. Each item has `l` (label), `d` (description), and `done` (default state).
 #	Label	Description	Default
-1	Register for SAT or ACT	Check if your target schools require scores	✅ done
-2	Request letters of recommendation	Ask conservatory director + 1 academic teacher	✅ done
-3	Start your Common App essay	650 words — lean into your artistic identity	✅ done
-4	Research arts colleges & conservatories	Reach / match / safety	☐
-5	Complete FAFSA	Opens Oct 1 — file as soon as possible	☐
-6	Build or update your arts portfolio / reel	Start early — quality over quantity	☐
-7	Schedule auditions or portfolio reviews	Many arts colleges require separate portals	☐
-8	Apply for early action / early decision	Nov 1–15 for most private schools	☐
-9	Apply for CAEA and arts scholarships	CAEA deadline: Mar 1, 2027	☐
-10	Submit UC / CSU application	Hard deadline: Nov 30, 2026	☐
-11	Get senior conservatory photos & headshots	Needed for auditions and portfolios	✅ done
-12	Perform in senior conservatory showcase	Your final OCSA performance	☐
-13	Submit remaining college applications	Regular decision: Jan 1–15, 2027	☐
-14	Compare financial aid award letters	Letters arrive March–April 2027	☐
-15	Make your final college decision	National Decision Day: May 1, 2027	☐
-16	Celebrate graduation at OCSA 🎓	You trained for this. Take your bow.	☐
+1	Register for SAT or ACT	Check if your target schools require scores	done
+2	Request letters of recommendation	Ask conservatory director + 1 academic teacher	done
+3	Start your Common App essay	650 words — lean into your artistic identity	done
+4	Research arts colleges & conservatories	Reach / match / safety	todo
+5	Complete FAFSA	Opens Oct 1 — file as soon as possible	todo
+6	Build or update your arts portfolio / reel	Start early — quality over quantity	todo
+7	Schedule auditions or portfolio reviews	Many arts colleges require separate portals	todo
+8	Apply for early action / early decision	Nov 1–15 for most private schools	todo
+9	Apply for CAEA and arts scholarships	CAEA deadline: Mar 1, 2027	todo
+10	Submit UC / CSU application	Hard deadline: Nov 30, 2026	todo
+11	Get senior conservatory photos & headshots	Needed for auditions and portfolios	done
+12	Perform in senior conservatory showcase	Your final OCSA performance	todo
+13	Submit remaining college applications	Regular decision: Jan 1–15, 2027	todo
+14	Compare financial aid award letters	Letters arrive March–April 2027	todo
+15	Make your final college decision	National Decision Day: May 1, 2027	todo
+16	Celebrate graduation at OCSA	You trained for this. Take your bow.	todo
 ---
 Default Events (seed data)
 Shown before admins add anything. Defined as `DEFAULT_EVENTS` in JS. Admins can override via the Admin Panel.
 Name	Month	Day	Date Display	Description
-Senior Sunset 🌅	May	23	May 23, 2026	Last outdoor hangout before finals — a beloved OCSA tradition.
-Senior Conservatory Showcases 🎭	Jun	~3	Jun 3–8, 2026	Final performances and exhibitions. Your last bow on the OCSA stage.
-Prom 🎉	Jun	~6	Jun 6, 2026	Plan your look early — OCSA seniors bring the creative energy.
-OCSA Graduation 🎓	Jun	~14	Jun 14, 2026	The main stage — cap, gown, and a crowd that knows how to celebrate.
+Senior Sunset	May	23	May 23, 2026	Last outdoor hangout before finals — a beloved OCSA tradition.
+Senior Conservatory Showcases	Jun	~3	Jun 3–8, 2026	Final performances and exhibitions. Your last bow on the OCSA stage.
+Prom	Jun	~6	Jun 6, 2026	Plan your look early — OCSA seniors bring the creative energy.
+OCSA Graduation	Jun	~14	Jun 14, 2026	The main stage — cap, gown, and a crowd that knows how to celebrate.
 ---
 Default Scholarships (seed data)
 Defined as `DEFAULT_SCHOLARSHIPS` in JS.
@@ -135,7 +135,7 @@ Defined as `moodMessages` object in JS:
 Great: "That's great to hear! Keep riding that energy — senior year has some amazing moments ahead."
 Okay: "Okay is perfectly fine. Senior year has its ups and downs — you're doing the work, and that matters."
 Stressed: "Stress during senior year is real and valid. Try to take one thing off your plate today. The coping tips below can help."
-Struggling: "Thank you for being honest with yourself. Struggling doesn't mean you're failing — it means you need support, and that's okay. Please look at the resources below. 💙"
+Struggling: "Thank you for being honest with yourself. Struggling doesn't mean you're failing — it means you need support, and that's okay. Please look at the resources below."
 ---
 Crisis Resources
 In the Mental Health panel crisis box:

@@ -98,17 +98,8 @@ Hosted HTML — uses `localStorage`
 Preview renderer — uses `window.storage` API
 Abstraction functions at top of JS: `stGet`, `stSet`, `stDel`, `stGetShared`, `stSetShared`
 Never use `localStorage` directly — always go through these helpers so the app keeps working in both environments.
-AI Prompt Helper
-```js
-function aiPrompt(text) {
-  if (typeof sendPrompt === 'function') {
-    sendPrompt(text); // inside preview renderer
-  } else {
-    window.open('https://claude.ai/new?q=' + encodeURIComponent(text), '_blank'); // hosted
-  }
-}
-```
-Always use `aiPrompt()` — never call `sendPrompt()` directly.
+Search Helper
+`openSearch(text)` opens a Google search for the given query in a new tab. Used by the "Find more scholarships", activity tiles, and conservatory tag buttons.
 OCSA Logo
 Inlined SVG — five colored polygons, no external image file:
 ```html
@@ -136,7 +127,7 @@ Function	What it does
 `addScholarship()`	Admin: adds scholarship to shared storage
 `addDeadline()`	Admin: adds deadline to shared storage
 `calBtn(title, start, end, desc)`	Returns HTML for Google/Apple calendar add button
-`aiPrompt(text)`	Opens assistant with prompt (works hosted + in renderer)
+`openSearch(text)`	Opens a Google search for the given query in a new tab
 `renderFaqs(filter)`	Renders FAQ list with optional category filter
 `selectMood(el, mood)`	Handles mood check-in selection
 `dismissConsent()`	Hides consent banner, saves to user storage
@@ -178,6 +169,6 @@ Storage abstraction — always use `stGet`/`stSet`/`stGetShared`/`stSetShared`, 
 Highlight boxes — always use Option D (paper bg + colored top border, no fill). See Design System above.
 Typography — `--T` for all titles/headings/labels, `--P` for all body text. Never swap these.
 Notebook aesthetic — warm paper colors, ruled line backgrounds, dashed borders. Don't introduce bright fills or modern flat UI patterns.
-Prompt helper — use `aiPrompt()` not `sendPrompt()` directly
+Search helper — use `openSearch()` for any "open results in a new tab" button
 Badges — transparent background, border only. No light fills.
 New panels — add the panel ID to `navMap` array and create a corresponding `.ni` nav item in the sidebar
