@@ -1030,7 +1030,7 @@ function esc(s) {
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function jsEsc(s) {
-  return String(s == null ? '' : s).replace(/[\\'"<>&\r\n  ]/g, c =>
+  return String(s == null ? '' : s).replace(/[\\'"<>&\r\n]/g, c =>
     '\\u' + c.charCodeAt(0).toString(16).padStart(4,'0'));
 }
 
