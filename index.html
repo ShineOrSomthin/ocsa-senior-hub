@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OCSA Senior Hub — Class of 2026</title>
+<title>OCSA Senior Hub — Class of 2027</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
@@ -350,7 +350,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
       </svg>
       <div class="auth-logo-text">OCSA Senior Hub</div>
     </div>
-    <div class="auth-school-tag">Orange County School of the Arts &mdash; Class of 2026</div>
+    <div class="auth-school-tag">Orange County School of the Arts &mdash; Class of 2027</div>
     <div class="auth-title">Sign in to your notebook</div>
     <div class="auth-sub">Your checklist, progress, and notes are saved to your account.</div>
     <button class="google-btn" onclick="googleSignIn()">
@@ -409,7 +409,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
       </svg>
       <div>
         <div class="tb-logo">OCSA Senior Hub</div>
-        <div class="tb-school">Orange County School of the Arts &middot; Class of 2026</div>
+        <div class="tb-school">Orange County School of the Arts &middot; Class of 2027</div>
       </div>
     </div>
     <div class="user-pill" onclick="toggleDrop()" id="user-pill">
@@ -443,7 +443,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
           <polygon points="165.5 16.5 145.5 103 226 121 246 34.5 165.5 16.5" fill="#ad0553"/>
           <polygon points="445 108.5 299.5 161.5 357.5 320 503 267 445 108.5" fill="#e9282f"/>
         </svg>
-        <div><div class="side-logo-text">Senior Hub</div><div class="side-logo-sub">Class of 2026</div></div>
+        <div><div class="side-logo-text">Senior Hub</div><div class="side-logo-sub">Class of 2027</div></div>
       </div>
       <div class="side-accent"></div>
       <div class="side-nav">
@@ -760,7 +760,7 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
           <div class="admin-panel-body">
             <div class="form-row">
               <div><span class="admin-label">Event name</span><input class="admin-input" id="a-ev-name" placeholder="e.g. Senior Prom 🎉"/></div>
-              <div><span class="admin-label">Date display</span><input class="admin-input" id="a-ev-date" placeholder="e.g. Jun 6, 2026"/></div>
+              <div><span class="admin-label">Date display</span><input class="admin-input" id="a-ev-date" placeholder="e.g. Jun 6, 2027"/></div>
             </div>
             <span class="admin-label">Month &amp; Day (for date box)</span>
             <div class="form-row"><input class="admin-input" id="a-ev-mo" placeholder="Jun"/><input class="admin-input" id="a-ev-dy" placeholder="6"/></div>
@@ -888,10 +888,10 @@ const ADMIN_EMAILS = [
 // ─── DEFAULT SEED DATA ──────────────────────────────────────
 // Shown before admins add anything. Edit these to update defaults.
 const DEFAULT_EVENTS = [
-  {id:'ev_1',name:"Senior Sunset 🌅",mo:"May",dy:"23",date:"May 23, 2026",desc:"Last outdoor hangout before finals — a beloved OCSA tradition.",color:"var(--ye)",isoStart:"20260523",isoEnd:"20260523"},
-  {id:'ev_2',name:"Senior Conservatory Showcases 🎭",mo:"Jun",dy:"~3",date:"Jun 3–8, 2026",desc:"Final performances and exhibitions. Your last bow on the OCSA stage.",color:"var(--pi)",isoStart:"20260603",isoEnd:"20260608"},
-  {id:'ev_3',name:"Prom 🎉",mo:"Jun",dy:"~6",date:"Jun 6, 2026",desc:"Plan your look early — OCSA seniors bring the creative energy.",color:"var(--oo)",isoStart:"20260606",isoEnd:"20260606"},
-  {id:'ev_4',name:"OCSA Graduation 🎓",mo:"Jun",dy:"~14",date:"Jun 14, 2026",desc:"The main stage — cap, gown, and a crowd that knows how to celebrate.",color:"var(--oo)",isoStart:"20260614",isoEnd:"20260614"},
+  {id:'ev_1',name:"Senior Sunset 🌅",mo:"May",dy:"23",date:"May 23, 2027",desc:"Last outdoor hangout before finals — a beloved OCSA tradition.",color:"var(--ye)",isoStart:"20270523",isoEnd:"20270523"},
+  {id:'ev_2',name:"Senior Conservatory Showcases 🎭",mo:"Jun",dy:"~3",date:"Jun 3–8, 2027",desc:"Final performances and exhibitions. Your last bow on the OCSA stage.",color:"var(--pi)",isoStart:"20270603",isoEnd:"20270608"},
+  {id:'ev_3',name:"Prom 🎉",mo:"Jun",dy:"~6",date:"Jun 6, 2027",desc:"Plan your look early — OCSA seniors bring the creative energy.",color:"var(--oo)",isoStart:"20270606",isoEnd:"20270606"},
+  {id:'ev_4',name:"OCSA Graduation 🎓",mo:"Jun",dy:"~14",date:"Jun 14, 2027",desc:"The main stage — cap, gown, and a crowd that knows how to celebrate.",color:"var(--oo)",isoStart:"20270614",isoEnd:"20270614"},
 ];
 const DEFAULT_SCHOLARSHIPS = [
   {id:'sc_1',name:"Scholastic Art & Writing Awards",badge:"portfolio",bc:"bo",bdr:"var(--oo)",desc:"Most prestigious recognition program for teen artists. Gold Key winners receive scholarships at many partner schools. All OCSA disciplines eligible.",dl:"Jan 2027"},
@@ -1019,7 +1019,7 @@ function renderUserUI() {
   document.getElementById('topbar-admin-badge').style.display = isAdmin() ? 'inline' : 'none';
   document.getElementById('drop-name').querySelector('span').textContent = currentUser.name;
   document.getElementById('drop-admin-badge').style.display = isAdmin() ? 'inline' : 'none';
-  document.getElementById('drop-detail').textContent = (isAdmin() ? '⚙️ Admin · ' : '') + (currentUser.conservatory || 'OCSA · Class of 2026');
+  document.getElementById('drop-detail').textContent = (isAdmin() ? '⚙️ Admin · ' : '') + (currentUser.conservatory || 'OCSA · Class of 2027');
   document.getElementById('drop-admin-link').style.display = isAdmin() ? 'flex' : 'none';
   document.getElementById('admin-nav-section').style.display = isAdmin() ? 'block' : 'none';
   document.getElementById('home-greeting').innerHTML = `<i class="ti ti-home" aria-hidden="true" style="color:var(--oo);"></i> Welcome back, ${currentUser.name.split(' ')[0]}!`;
@@ -1217,7 +1217,7 @@ async function addEvent() {
   const desc = document.getElementById('a-ev-desc').value.trim();
   const color = document.getElementById('a-ev-color').value;
   if (!name||!desc) { alert('Please fill in the event name and description.'); return; }
-  liveEvents = [...liveEvents, {id:'ev_'+Date.now(),name,date,mo,dy,desc,color,isoStart:'20260601',isoEnd:'20260601'}];
+  liveEvents = [...liveEvents, {id:'ev_'+Date.now(),name,date,mo,dy,desc,color,isoStart:'20270601',isoEnd:'20270601'}];
   await stSetShared('events', liveEvents);
   renderEvents(); updateDashCounts(); renderAdminLists();
   ['a-ev-name','a-ev-date','a-ev-mo','a-ev-dy','a-ev-desc'].forEach(id=>document.getElementById(id).value='');

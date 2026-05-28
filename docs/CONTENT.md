@@ -5,7 +5,7 @@ School Info
 School name: Orange County School of the Arts (OCSA)
 Address: 1010 N. Main St, Santa Ana, CA 92701
 Website: ocsarts.net
-Class: Class of 2026
+Class: Class of 2027
 Privacy contact: studentservices@ocsarts.net
 ---
 Admin Emails
@@ -67,10 +67,10 @@ Defined as `chkItems` array in JS. Each item has `l` (label), `d` (description),
 Default Events (seed data)
 Shown before admins add anything. Defined as `DEFAULT_EVENTS` in JS. Admins can override via the Admin Panel.
 Name	Month	Day	Date Display	Description
-Senior Sunset	May	23	May 23, 2026	Last outdoor hangout before finals — a beloved OCSA tradition.
-Senior Conservatory Showcases	Jun	~3	Jun 3–8, 2026	Final performances and exhibitions. Your last bow on the OCSA stage.
-Prom	Jun	~6	Jun 6, 2026	Plan your look early — OCSA seniors bring the creative energy.
-OCSA Graduation	Jun	~14	Jun 14, 2026	The main stage — cap, gown, and a crowd that knows how to celebrate.
+Senior Sunset	May	23	May 23, 2027	Last outdoor hangout before finals — a beloved OCSA tradition.
+Senior Conservatory Showcases	Jun	~3	Jun 3–8, 2027	Final performances and exhibitions. Your last bow on the OCSA stage.
+Prom	Jun	~6	Jun 6, 2027	Plan your look early — OCSA seniors bring the creative energy.
+OCSA Graduation	Jun	~14	Jun 14, 2027	The main stage — cap, gown, and a crowd that knows how to celebrate.
 ---
 Default Scholarships (seed data)
 Defined as `DEFAULT_SCHOLARSHIPS` in JS.
