@@ -597,14 +597,14 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
         <div class="ps">OCSA-trained artists applying to arts colleges &mdash; stand out</div>
         <div class="nb-card"><div class="ct">Get Tips by Conservatory</div>
           <div class="cons-grid">
-            <div class="con-tag" onclick="openSearch('Audition tips for college Musical Theater programs as an OCSA student')"><i class="ti ti-masks-theater" aria-hidden="true"></i> Musical Theater</div>
-            <div class="con-tag" onclick="openSearch('Audition tips for college Acting programs as an OCSA student')"><i class="ti ti-user" aria-hidden="true"></i> Acting</div>
-            <div class="con-tag" onclick="openSearch('Portfolio tips for college Dance programs as an OCSA student')"><i class="ti ti-star" aria-hidden="true"></i> Dance</div>
-            <div class="con-tag" onclick="openSearch('Portfolio tips for Visual Arts college programs as an OCSA student')"><i class="ti ti-palette" aria-hidden="true"></i> Visual Arts</div>
-            <div class="con-tag" onclick="openSearch('Audition tips for college music programs as an OCSA student')"><i class="ti ti-music" aria-hidden="true"></i> Instrumental / Voice</div>
-            <div class="con-tag" onclick="openSearch('Portfolio tips for film school as an OCSA Film and Television student')"><i class="ti ti-movie" aria-hidden="true"></i> Film &amp; Television</div>
-            <div class="con-tag" onclick="openSearch('Portfolio tips for digital media college programs as an OCSA student')"><i class="ti ti-device-laptop" aria-hidden="true"></i> Digital Media</div>
-            <div class="con-tag" onclick="openSearch('Application tips for Creative Writing college programs as an OCSA student')"><i class="ti ti-pencil" aria-hidden="true"></i> Creative Writing</div>
+            <div class="con-tag" onclick="show('tips-musicaltheater')"><i class="ti ti-masks-theater" aria-hidden="true"></i> Musical Theater</div>
+            <div class="con-tag" onclick="show('tips-acting')"><i class="ti ti-user" aria-hidden="true"></i> Acting</div>
+            <div class="con-tag" onclick="show('tips-dance')"><i class="ti ti-star" aria-hidden="true"></i> Dance</div>
+            <div class="con-tag" onclick="show('tips-visualarts')"><i class="ti ti-palette" aria-hidden="true"></i> Visual Arts</div>
+            <div class="con-tag" onclick="show('tips-instrumentalvoice')"><i class="ti ti-music" aria-hidden="true"></i> Instrumental / Voice</div>
+            <div class="con-tag" onclick="show('tips-filmtv')"><i class="ti ti-movie" aria-hidden="true"></i> Film &amp; Television</div>
+            <div class="con-tag" onclick="show('tips-digitalmedia')"><i class="ti ti-device-laptop" aria-hidden="true"></i> Digital Media</div>
+            <div class="con-tag" onclick="show('tips-creativewriting')"><i class="ti ti-pencil" aria-hidden="true"></i> Creative Writing</div>
           </div>
         </div>
         <div class="nb-card"><div class="ct">Universal Tips</div>
@@ -613,6 +613,40 @@ html,body{height:100%;font-family:var(--P);color:var(--ink);background:var(--pa3
           <div class="tip-row"><div class="tip-n" style="background:var(--re);">3</div><div class="tip-t"><strong>Research each school's culture</strong><span>CalArts, USC Thornton, Berklee, and NYU Tisch each have very different vibes.</span></div></div>
           <div class="tip-row"><div class="tip-n" style="background:var(--pi);">4</div><div class="tip-t"><strong>Record and get honest notes</strong><span>Film practice auditions. Ask your conservatory director for a real critique.</span></div></div>
         </div>
+      </div>
+
+      <!-- CONSERVATORY TIPS SUBPAGES (filled in later by school) -->
+      <div id="panel-tips-musicaltheater" class="panel">
+        <div class="ph"><i class="ti ti-masks-theater" aria-hidden="true" style="color:var(--pi);"></i> Tips for Musical Theater</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-acting" class="panel">
+        <div class="ph"><i class="ti ti-user" aria-hidden="true" style="color:var(--pi);"></i> Tips for Acting</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-dance" class="panel">
+        <div class="ph"><i class="ti ti-star" aria-hidden="true" style="color:var(--pi);"></i> Tips for Dance</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-visualarts" class="panel">
+        <div class="ph"><i class="ti ti-palette" aria-hidden="true" style="color:var(--pi);"></i> Tips for Visual Arts</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-instrumentalvoice" class="panel">
+        <div class="ph"><i class="ti ti-music" aria-hidden="true" style="color:var(--pi);"></i> Tips for Instrumental / Voice</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-filmtv" class="panel">
+        <div class="ph"><i class="ti ti-movie" aria-hidden="true" style="color:var(--pi);"></i> Tips for Film &amp; Television</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-digitalmedia" class="panel">
+        <div class="ph"><i class="ti ti-device-laptop" aria-hidden="true" style="color:var(--pi);"></i> Tips for Digital Media</div>
+        <div class="tab-bar tips-tab-bar"></div>
+      </div>
+      <div id="panel-tips-creativewriting" class="panel">
+        <div class="ph"><i class="ti ti-pencil" aria-hidden="true" style="color:var(--pi);"></i> Tips for Creative Writing</div>
+        <div class="tab-bar tips-tab-bar"></div>
       </div>
 
       <!-- ESSAYS -->
@@ -1476,7 +1510,32 @@ function openSearch(text) {
   window.open('https://www.google.com/search?q=' + encodeURIComponent(text), '_blank');
 }
 
+// ─── CONSERVATORY TIPS TABS ──────────────────────────────────
+const TIPS_TABS = [
+  {id:'tips-musicaltheater',    label:'Musical Theater',      icon:'ti-masks-theater'},
+  {id:'tips-acting',            label:'Acting',               icon:'ti-user'},
+  {id:'tips-dance',             label:'Dance',                icon:'ti-star'},
+  {id:'tips-visualarts',        label:'Visual Arts',          icon:'ti-palette'},
+  {id:'tips-instrumentalvoice', label:'Instrumental / Voice', icon:'ti-music'},
+  {id:'tips-filmtv',            label:'Film & Television',    icon:'ti-movie'},
+  {id:'tips-digitalmedia',      label:'Digital Media',        icon:'ti-device-laptop'},
+  {id:'tips-creativewriting',   label:'Creative Writing',     icon:'ti-pencil'},
+];
+
+function renderTipsTabs() {
+  TIPS_TABS.forEach(panelTab => {
+    const bar = document.querySelector('#panel-' + panelTab.id + ' .tips-tab-bar');
+    if (!bar) return;
+    bar.innerHTML = TIPS_TABS.map(t => {
+      const isActive = t.id === panelTab.id;
+      const style = isActive ? ' style="color:var(--pi);border-bottom-color:var(--pi);"' : '';
+      return `<div class="tab${isActive ? ' active' : ''}"${style} onclick="show('${t.id}')"><i class="ti ${t.icon}" aria-hidden="true"></i> ${t.label}</div>`;
+    }).join('');
+  });
+}
+
 // ─── BOOT ────────────────────────────────────────────────────
+renderTipsTabs();
 init();
 </script>
 </body>
